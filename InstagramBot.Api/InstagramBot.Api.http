@@ -1,0 +1,6 @@
+@InstagramBot.Api_HostAddress = http://localhost:5253
+
+GET {{InstagramBot.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
