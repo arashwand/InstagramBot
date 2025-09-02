@@ -1,0 +1,6 @@
+/.vs
+/InstagramBot.Web/obj
+/InstagramBot.Infrastructure/obj
+/InstagramBot.Api/obj
+/InstagramBot.Core/obj
+/InstagramBot.Application/obj
