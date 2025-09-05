@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramBot.Web", "InstagramBot.Web\InstagramBot.Web.csproj", "{37D490AC-88C2-447F-8D6A-0BC7FA8ADD3C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramBot.Api", "InstagramBot.Api\InstagramBot.Api.csproj", "{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramBot.Core", "InstagramBot.Core\InstagramBot.Core.csproj", "{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramBot.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramBot.Application", "InstagramBot.Application\InstagramBot.Application.csproj", "{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramBot.Web", "InstagramBot.Web\InstagramBot.Web.csproj", "{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{37D490AC-88C2-447F-8D6A-0BC7FA8ADD3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37D490AC-88C2-447F-8D6A-0BC7FA8ADD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37D490AC-88C2-447F-8D6A-0BC7FA8ADD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37D490AC-88C2-447F-8D6A-0BC7FA8ADD3C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

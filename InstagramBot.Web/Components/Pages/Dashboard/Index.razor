@@ -1,0 +1,440 @@
+﻿@page "/"
+@inject IAnalyticsService AnalyticsService
+@inject IAccountService AccountService
+@inject IPostService PostService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>داشبورد - Instagram Bot</PageTitle>
+
+<div class="dashboard">
+    <div class="dashboard-header">
+        <h1 class="page-title">داشبورد</h1>
+        <div class="dashboard-actions">
+            <button class="btn btn-primary" @onclick="RefreshData">
+                <i class="fas fa-sync-alt"></i>
+                به‌روزرسانی
+            </button>
+            <button class="btn btn-outline-primary" @onclick="ExportReport">
+                <i class="fas fa-download"></i>
+                گزارش
+            </button>
+        </div>
+    </div>
+    
+    <!-- کارت‌های آماری -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">@totalAccounts</div>
+                <div class="stat-label">حساب‌های متصل</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +@newAccountsThisMonth
+                </div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-images"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">@totalPosts</div>
+                <div class="stat-label">پست‌های منتشرشده</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +@postsThisWeek
+                </div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">@totalLikes.ToString("N0")</div>
+                <div class="stat-label">لایک‌های دریافتی</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +@likesGrowth%
+                </div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">@totalComments.ToString("N0")</div>
+                <div class="stat-label">کامنت‌های دریافتی</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +@commentsGrowth%
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- نمودارها -->
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3>نمودار تعاملات (30 روز گذشته)</h3>
+                <div class="chart-controls">
+                    <select @bind="selectedPeriod" @onchange="UpdateCharts">
+                        <option value="7">7 روز گذشته</option>
+                        <option value="30">30 روز گذشته</option>
+                        <option value="90">90 روز گذشته</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="engagementChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3>توزیع نوع محتوا</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="contentTypeChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- جداول اطلاعات -->
+    <div class="tables-grid">
+        <div class="table-card">
+            <div class="table-header">
+                <h3>پست‌های اخیر</h3>
+                <a href="/posts" class="view-all-link">مشاهده همه</a>
+            </div>
+            <div class="table-container">
+                @if (recentPosts.Any())
+                {
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>تصویر</th>
+                                <th>کپشن</th>
+                                <th>حساب</th>
+                                <th>تاریخ انتشار</th>
+                                <th>تعاملات</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var post in recentPosts.Take(5))
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="post-thumbnail">
+                                            <img src="@post.ThumbnailUrl" alt="Post" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="post-caption">
+                                            @((post.Caption?.Length > 50 ? post.Caption.Substring(0, 50) + "..." : post.Caption))
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="account-info">
+                                            <span class="account-name">@post.Account?.InstagramUsername</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="post-date">@post.PublishedDate?.ToString("yyyy/MM/dd HH:mm")</span>
+                                    </td>
+                                    <td>
+                                        <div class="engagement-stats">
+                                            <span class="likes">
+                                                <i class="fas fa-heart"></i>
+                                                @post.Analytics?.LikesCount.ToString("N0")
+                                            </span>
+                                            <span class="comments">
+                                                <i class="fas fa-comment"></i>
+                                                @post.Analytics?.CommentsCount.ToString("N0")
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-sm btn-outline-primary" 
+                                                    @onclick="() => ViewPost(post.Id)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary" 
+                                                    @onclick="() => EditPost(post.Id)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <i class="fas fa-images"></i>
+                        <p>هنوز پستی منتشر نشده است</p>
+                        <a href="/posts/create" class="btn btn-primary">ایجاد اولین پست</a>
+                    </div>
+                }
+            </div>
+        </div>
+        
+        <div class="table-card">
+            <div class="table-header">
+                <h3>کامنت‌های جدید</h3>
+                <a href="/interactions/comments" class="view-all-link">مشاهده همه</a>
+            </div>
+            <div class="table-container">
+                @if (recentComments.Any())
+                {
+                    <div class="comments-list">
+                        @foreach (var comment in recentComments.Take(5))
+                        {
+                            <div class="comment-item">
+                                <div class="comment-avatar">
+                                    <img src="@comment.UserProfileImage" alt="@comment.Username" />
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <span class="comment-username">@comment.Username</span>
+                                        <span class="comment-time">@comment.CreatedDate.ToString("yyyy/MM/dd HH:mm")</span>
+                                    </div>
+                                    <div class="comment-text">@comment.Text</div>
+                                    <div class="comment-actions">
+                                        <button class="btn btn-sm btn-outline-primary" 
+                                                @onclick="() => ReplyToComment(comment.Id)">
+                                            پاسخ
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" 
+                                                @onclick="() => DeleteComment(comment.Id)">
+                                            حذف
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <p>کامنت جدیدی وجود ندارد</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    
+    <!-- پیشنهادات هوشمند -->
+    <div class="recommendations-section">
+        <div class="section-header">
+            <h2>پیشنهادات هوشمند</h2>
+            <button class="btn btn-outline-primary" @onclick="RefreshRecommendations">
+                <i class="fas fa-lightbulb"></i>
+                پیشنهادات جدید
+            </button>
+        </div>
+        
+        <div class="recommendations-grid">
+            @foreach (var recommendation in recommendations)
+            {
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="@GetRecommendationIcon(recommendation.RecommendationType)"></i>
+                    </div>
+                    <div class="recommendation-content">
+                        <h4>@recommendation.Title</h4>
+                        <p>@recommendation.Description</p>
+                        <div class="recommendation-confidence">
+                            اطمینان: @((recommendation.ConfidenceScore * 100).ToString("F0"))%
+                        </div>
+                    </div>
+                    <div class="recommendation-actions">
+                        <button class="btn btn-sm btn-primary" 
+                                @onclick="() => ApplyRecommendation(recommendation.Id)">
+                            اعمال
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" 
+                                @onclick="() => DismissRecommendation(recommendation.Id)">
+                            رد کردن
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    // آمار کلی
+    private int totalAccounts = 0;
+    private int newAccountsThisMonth = 0;
+    private int totalPosts = 0;
+    private int postsThisWeek = 0;
+    private long totalLikes = 0;
+    private double likesGrowth = 0;
+    private long totalComments = 0;
+    private double commentsGrowth = 0;
+    
+    // داده‌های جداول
+    private List<PostDto> recentPosts = new();
+    private List<CommentDto> recentComments = new();
+    private List<ContentRecommendationDto> recommendations = new();
+    
+    // تنظیمات نمودار
+    private string selectedPeriod = "30";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDashboardData();
+        await InitializeCharts();
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await UpdateCharts();
+        }
+    }
+    
+    private async Task LoadDashboardData()
+    {
+        try
+        {
+            // بارگذاری آمار کلی
+            var stats = await AnalyticsService.GetDashboardStatsAsync();
+            totalAccounts = (int)stats["totalAccounts"];
+            newAccountsThisMonth = (int)stats["newAccountsThisMonth"];
+            totalPosts = (int)stats["totalPosts"];
+            postsThisWeek = (int)stats["postsThisWeek"];
+            totalLikes = (long)stats["totalLikes"];
+            likesGrowth = (double)stats["likesGrowth"];
+            totalComments = (long)stats["totalComments"];
+            commentsGrowth = (double)stats["commentsGrowth"];
+            
+            // بارگذاری پست‌های اخیر
+            recentPosts = await PostService.GetRecentPostsAsync(10);
+            
+            // بارگذاری کامنت‌های جدید
+            // recentComments = await InteractionService.GetRecentCommentsAsync(10);
+            
+            // بارگذاری پیشنهادات
+            // recommendations = await ContentRecommendationService.GetActiveRecommendationsAsync();
+            
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            // مدیریت خطا
+            await JSRuntime.InvokeVoidAsync("showErrorNotification", "خطا در بارگذاری داده‌ها", ex.Message);
+        }
+    }
+    
+    private async Task InitializeCharts()
+    {
+        await JSRuntime.InvokeVoidAsync("initializeDashboardCharts");
+    }
+    
+    private async Task UpdateCharts()
+    {
+        try
+        {
+            var days = int.Parse(selectedPeriod);
+            var chartData = await AnalyticsService.GetEngagementChartDataAsync(days);
+            
+            await JSRuntime.InvokeVoidAsync("updateEngagementChart", chartData);
+            
+            var contentTypeData = await AnalyticsService.GetContentTypeDistributionAsync();
+            await JSRuntime.InvokeVoidAsync("updateContentTypeChart", contentTypeData);
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("showErrorNotification", "خطا در به‌روزرسانی نمودارها", ex.Message);
+        }
+    }
+    
+    private async Task RefreshData()
+    {
+        await JSRuntime.InvokeVoidAsync("showLoadingOverlay");
+        await LoadDashboardData();
+        await UpdateCharts();
+        await JSRuntime.InvokeVoidAsync("hideLoadingOverlay");
+        await JSRuntime.InvokeVoidAsync("showSuccessNotification", "داده‌ها با موفقیت به‌روزرسانی شد");
+    }
+    
+    private async Task ExportReport()
+    {
+        await JSRuntime.InvokeVoidAsync("exportDashboardReport");
+    }
+    
+    private async Task ViewPost(int postId)
+    {
+        // نمایش جزئیات پست
+        await JSRuntime.InvokeVoidAsync("showPostDetails", postId);
+    }
+    
+    private async Task EditPost(int postId)
+    {
+        // ویرایش پست
+        await JSRuntime.InvokeVoidAsync("editPost", postId);
+    }
+    
+    private async Task ReplyToComment(int commentId)
+    {
+        // پاسخ به کامنت
+        await JSRuntime.InvokeVoidAsync("replyToComment", commentId);
+    }
+    
+    private async Task DeleteComment(int commentId)
+    {
+        // حذف کامنت
+        await JSRuntime.InvokeVoidAsync("deleteComment", commentId);
+    }
+    
+    private async Task RefreshRecommendations()
+    {
+        // به‌روزرسانی پیشنهادات
+        // recommendations = await ContentRecommendationService.GenerateNewRecommendationsAsync();
+        StateHasChanged();
+    }
+    
+    private async Task ApplyRecommendation(int recommendationId)
+    {
+        // اعمال پیشنهاد
+        // await ContentRecommendationService.ApplyRecommendationAsync(recommendationId);
+        await RefreshRecommendations();
+    }
+    
+    private async Task DismissRecommendation(int recommendationId)
+    {
+        // رد کردن پیشنهاد
+        recommendations.RemoveAll(r => r.Id == recommendationId);
+        StateHasChanged();
+    }
+    
+    private string GetRecommendationIcon(string type)
+    {
+        return type switch
+        {
+            "Caption" => "fas fa-edit",
+            "Hashtags" => "fas fa-hashtag",
+            "PostTime" => "fas fa-clock",
+            "ContentType" => "fas fa-image",
+            _ => "fas fa-lightbulb"
+        };
+    }
+}

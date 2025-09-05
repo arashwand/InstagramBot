@@ -1,0 +1,411 @@
+﻿@inject IJSRuntime JSRuntime
+@inject INotificationService NotificationService
+
+<header class="topbar">
+    <div class="topbar-left">
+        <button class="mobile-menu-toggle d-md-none" @onclick="ToggleSidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">@currentPageTitle</span>
+        </div>
+    </div>
+
+    <div class="topbar-right">
+        <div class="search-box">
+            <input type="text" placeholder="جستجو..." @bind="searchQuery" @onkeypress="HandleSearch" />
+            <i class="fas fa-search"></i>
+        </div>
+
+        <div class="notifications-dropdown dropdown">
+            <button class="notification-btn" data-bs-toggle="dropdown">
+                <i class="fas fa-bell"></i>
+                @if (unreadNotificationsCount > 0)
+                {
+                    <span class="notification-badge">@unreadNotificationsCount</span>
+                }
+            </button>
+
+            <div class="dropdown-menu dropdown-menu-end notifications-menu">
+                <div class="notifications-header">
+                    <h6>اعلان‌ها</h6>
+                    <button class="mark-all-read" @onclick="MarkAllAsRead">
+                        همه را خوانده‌شده علامت بزن
+                    </button>
+                </div>
+
+                <div class="notifications-list">
+                    @if (notifications.Any())
+                    {
+                        @foreach (var notification in notifications.Take(5))
+                        {
+                            <div class="notification-item @(notification.IsRead ? "" : "unread")"
+                                 @onclick="() => MarkAsRead(notification.Id)">
+                                <div class="notification-icon">
+                                    <i class="@GetNotificationIcon(notification.Type)"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">@notification.Title</div>
+                                    <div class="notification-message">@notification.Message</div>
+                                    <div class="notification-time">@notification.CreatedDate.ToString("yyyy/MM/dd HH:mm")</div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="no-notifications">
+                            <i class="fas fa-bell-slash"></i>
+                            <span>اعلان جدیدی وجود ندارد</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="notifications-footer">
+                    <a href="/notifications" class="view-all">مشاهده همه اعلان‌ها</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="user-dropdown dropdown">
+            <button class="user-btn" data-bs-toggle="dropdown">
+                <img src="@currentUser?.ProfileImage" alt="@currentUser?.FullName" class="user-avatar" />
+                <span class="user-name d-none d-md-inline">@currentUser?.FullName</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <div class="dropdown-menu dropdown-menu-end user-menu">
+                <a class="dropdown-item" href="/settings/profile">
+                    <i class="fas fa-user"></i>
+                    پروفایل
+                </a>
+                <a class="dropdown-item" href="/settings/security">
+                    <i class="fas fa-cog"></i>
+                    تنظیمات
+                </a>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" @onclick="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+@code {
+    [CascadingParameter] public User currentUser { get; set; }
+    [Parameter] public string currentPageTitle { get; set; } = "داشبورد";
+
+    private string searchQuery = "";
+    private int unreadNotificationsCount = 0;
+    private List<NotificationDto> notifications = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadNotifications();
+
+        // اتصال به SignalR برای دریافت اعلان‌های جدید
+        await JSRuntime.InvokeVoidAsync("subscribeToNotifications",
+            DotNetObjectReference.Create(this));
+    }
+
+    private async Task LoadNotifications()
+    {
+        if (currentUser != null)
+        {
+            notifications = await NotificationService.GetRecentNotificationsAsync(currentUser.Id, 10);
+            unreadNotificationsCount = notifications.Count(n => !n.IsRead);
+            StateHasChanged();
+        }
+    }
+
+    [JSInvokable]
+    public async Task OnNewNotification(NotificationDto notification)
+    {
+        notifications.Insert(0, notification);
+        if (!notification.IsRead)
+        {
+            unreadNotificationsCount++;
+        }
+        StateHasChanged();
+
+        // نمایش toast notification
+        await JSRuntime.InvokeVoidAsync("showToastNotification",
+            notification.Title, notification.Message, notification.Type);
+    }
+
+    private async Task MarkAsRead(int notificationId)
+    {
+        await NotificationService.MarkAsReadAsync(notificationId);
+        var notification = notifications.FirstOrDefault(n => n.Id == notificationId);
+        if (notification != null && !notification.IsRead)
+        {
+            notification.IsRead = true;
+            unreadNotificationsCount--;
+            StateHasChanged();
+        }
+    }
+
+    private async Task MarkAllAsRead()
+    {
+        await NotificationService.MarkAllAsReadAsync(currentUser.Id);
+        foreach (var notification in notifications.Where(n => !n.IsRead))
+        {
+            notification.IsRead = true;
+        }
+        unreadNotificationsCount = 0;
+        StateHasChanged();
+    }
+
+    private async Task HandleSearch(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(searchQuery))
+        {
+            // پیاده‌سازی جستجو
+            await JSRuntime.InvokeVoidAsync("performSearch", searchQuery);
+        }
+    }
+
+    private async Task ToggleSidebar()
+    {
+        await JSRuntime.InvokeVoidAsync("toggleSidebar");
+    }
+
+    private string GetNotificationIcon(string type)
+    {
+        return type switch
+        {
+            "Success" => "fas fa-check-circle text-success",
+            "Warning" => "fas fa-exclamation-triangle text-warning",
+            "Error" => "fas fa-times-circle text-danger",
+            "Info" => "fas fa-info-circle text-info",
+            _ => "fas fa-bell"
+        };
+    }
+
+    private async Task Logout()
+    {
+        await JSRuntime.InvokeVoidAsync("logout");
+    }
+}
+
+<style>
+    .topbar {
+        height: 70px;
+        background: white;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .topbar-left {
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-menu-toggle {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        color: #6c757d;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+
+    .breadcrumb {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .search-box {
+        position: relative;
+        display: none;
+    }
+
+        .search-box input {
+            width: 300px;
+            padding: 8px 40px 8px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            background: #f8f9fa;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+    .notification-btn, .user-btn {
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+        cursor: pointer;
+    }
+
+        .notification-btn:hover, .user-btn:hover {
+            background: #f8f9fa;
+        }
+
+    .notification-btn {
+        position: relative;
+        font-size: 1.1rem;
+        color: #6c757d;
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #dc3545;
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .user-name {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .notifications-menu, .user-menu {
+        width: 320px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        border-radius: 12px;
+    }
+
+    .notifications-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+        .notifications-header h6 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+    .mark-all-read {
+        background: none;
+        border: none;
+        color: #007bff;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+
+    .notifications-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .notification-item {
+        display: flex;
+        padding: 15px 20px;
+        border-bottom: 1px solid #f8f9fa;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+        .notification-item:hover {
+            background: #f8f9fa;
+        }
+
+        .notification-item.unread {
+            background: #e3f2fd;
+        }
+
+    .notification-icon {
+        margin-left: 12px;
+        font-size: 1.2rem;
+    }
+
+    .notification-content {
+        flex: 1;
+    }
+
+    .notification-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+
+    .notification-message {
+        color: #6c757d;
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+
+    .notification-time {
+        color: #adb5bd;
+        font-size: 0.75rem;
+    }
+
+    .no-notifications {
+        text-align: center;
+        padding: 30px 20px;
+        color: #6c757d;
+    }
+
+        .no-notifications i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+    .notifications-footer {
+        padding: 15px 20px;
+        text-align: center;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .view-all {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    @media (min-width: 768px) {
+        .search-box
+
+    {
+        display: block;
+    }
+
+    }
+</style>

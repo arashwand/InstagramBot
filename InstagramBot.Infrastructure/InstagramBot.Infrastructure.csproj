@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.21" />
+    <PackageReference Include="Hangfire.Core" Version="1.8.21" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InstagramBot.Application\InstagramBot.Application.csproj" />
     <ProjectReference Include="..\InstagramBot.Core\InstagramBot.Core.csproj" />
   </ItemGroup>

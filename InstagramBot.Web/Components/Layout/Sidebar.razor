@@ -1,0 +1,308 @@
+﻿@inject NavigationManager Navigation
+@inject IAccountService AccountService
+
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <div class="logo">
+            <i class="fab fa-instagram"></i>
+            <span>Instagram Bot</span>
+        </div>
+    </div>
+
+    <div class="sidebar-menu">
+        <div class="menu-section">
+            <h6 class="menu-title">داشبورد</h6>
+            <ul class="menu-items">
+                <li class="menu-item @GetActiveClass("/")">
+                    <a href="/" class="menu-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>نمای کلی</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/analytics")">
+                    <a href="/analytics" class="menu-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>آمار و تحلیل</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <h6 class="menu-title">حساب‌ها</h6>
+            <ul class="menu-items">
+                <li class="menu-item @GetActiveClass("/accounts")">
+                    <a href="/accounts" class="menu-link">
+                        <i class="fas fa-user-circle"></i>
+                        <span>مدیریت حساب‌ها</span>
+                        <span class="badge">@accountsCount</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/accounts/add")">
+                    <a href="/accounts/add" class="menu-link">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>افزودن حساب</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <h6 class="menu-title">محتوا</h6>
+            <ul class="menu-items">
+                <li class="menu-item @GetActiveClass("/posts")">
+                    <a href="/posts" class="menu-link">
+                        <i class="fas fa-images"></i>
+                        <span>پست‌ها</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/posts/create")">
+                    <a href="/posts/create" class="menu-link">
+                        <i class="fas fa-plus"></i>
+                        <span>ایجاد پست</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/posts/schedule")">
+                    <a href="/posts/schedule" class="menu-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>زمان‌بندی</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <h6 class="menu-title">تعاملات</h6>
+            <ul class="menu-items">
+                <li class="menu-item @GetActiveClass("/interactions/comments")">
+                    <a href="/interactions/comments" class="menu-link">
+                        <i class="fas fa-comments"></i>
+                        <span>کامنت‌ها</span>
+                        <span class="badge badge-warning">@newCommentsCount</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/interactions/messages")">
+                    <a href="/interactions/messages" class="menu-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>پیام‌ها</span>
+                        <span class="badge badge-info">@newMessagesCount</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/interactions/automation")">
+                    <a href="/interactions/automation" class="menu-link">
+                        <i class="fas fa-robot"></i>
+                        <span>اتوماسیون</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <h6 class="menu-title">تنظیمات</h6>
+            <ul class="menu-items">
+                <li class="menu-item @GetActiveClass("/settings/profile")">
+                    <a href="/settings/profile" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span>پروفایل</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/settings/security")">
+                    <a href="/settings/security" class="menu-link">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>امنیت</span>
+                    </a>
+                </li>
+                <li class="menu-item @GetActiveClass("/settings/notifications")">
+                    <a href="/settings/notifications" class="menu-link">
+                        <i class="fas fa-bell"></i>
+                        <span>اعلان‌ها</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="sidebar-footer">
+        <div class="user-info">
+            <div class="user-avatar">
+                <img src="@currentUser?.ProfileImage" alt="@currentUser?.FullName" />
+            </div>
+            <div class="user-details">
+                <span class="user-name">@currentUser?.FullName</span>
+                <span class="user-email">@currentUser?.Email</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@code {
+    [CascadingParameter] public User currentUser { get; set; }
+
+    private int accountsCount = 0;
+    private int newCommentsCount = 0;
+    private int newMessagesCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCounts();
+    }
+
+    private async Task LoadCounts()
+    {
+        if (currentUser != null)
+        {
+            accountsCount = await AccountService.GetAccountsCountAsync(currentUser.Id);
+            // newCommentsCount = await InteractionService.GetNewCommentsCountAsync(currentUser.Id);
+            // newMessagesCount = await InteractionService.GetNewMessagesCountAsync(currentUser.Id);
+        }
+    }
+
+    private string GetActiveClass(string path)
+    {
+        var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        return currentPath.Equals(path.TrimStart('/'), StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    }
+}
+
+<style>
+    .sidebar {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        color: white;
+    }
+
+    .sidebar-header {
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+        .logo i {
+            margin-left: 10px;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+    .sidebar-menu {
+        flex: 1;
+        padding: 20px 0;
+        overflow-y: auto;
+    }
+
+    .menu-section {
+        margin-bottom: 30px;
+    }
+
+    .menu-title {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        padding: 0 20px;
+    }
+
+    .menu-items {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-item {
+        margin-bottom: 2px;
+    }
+
+    .menu-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+        .menu-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+    .menu-item.active .menu-link {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border-right: 3px solid #fff;
+    }
+
+    .menu-link i {
+        width: 20px;
+        margin-left: 15px;
+        text-align: center;
+    }
+
+    .badge {
+        margin-right: auto;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+    }
+
+    .badge-warning {
+        background: #ffc107;
+        color: #000;
+    }
+
+    .badge-info {
+        background: #17a2b8;
+    }
+
+    .sidebar-footer {
+        padding: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-left: 12px;
+    }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .user-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .user-email {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+    }
+</style>

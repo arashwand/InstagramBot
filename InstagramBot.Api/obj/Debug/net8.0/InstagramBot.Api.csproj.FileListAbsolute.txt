@@ -138,3 +138,12 @@ D:\repos\InstagramBot.Web\InstagramBot.Api\obj\Debug\net8.0\refint\InstagramBot.
 D:\repos\InstagramBot.Web\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.pdb
 D:\repos\InstagramBot.Web\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.genruntimeconfig.cache
 D:\repos\InstagramBot.Web\InstagramBot.Api\obj\Debug\net8.0\ref\InstagramBot.Api.dll
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.csproj.AssemblyReference.cache
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.AssemblyInfoInputs.cache
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.AssemblyInfo.cs
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.csproj.CoreCompileInputs.cache
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.MvcApplicationPartsAssemblyInfo.cs
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.MvcApplicationPartsAssemblyInfo.cache
+D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.sourcelink.json

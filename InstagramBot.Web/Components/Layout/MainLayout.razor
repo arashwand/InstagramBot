@@ -1,0 +1,120 @@
+﻿@inherits LayoutView
+@inject IJSRuntime JSRuntime
+@inject INotificationService NotificationService
+@using InstagramBot.Core
+
+<div class="app-container">
+    <CascadingValue Value="@currentUser">
+        <div class="sidebar-container">
+            <Sidebar />
+        </div>
+
+        <div class="main-content">
+            <TopBar />
+
+            <main class="content-area">
+                @Body
+            </main>
+        </div>
+    </CascadingValue>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay d-none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">در حال بارگذاری...</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    
+    private User currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // دریافت اطلاعات کاربر جاری
+        currentUser = await GetCurrentUserAsync();
+
+        // اتصال به SignalR Hub
+        await ConnectToNotificationHub();
+    }
+
+    private async Task<User> GetCurrentUserAsync()
+    {
+        // پیاده‌سازی دریافت کاربر جاری
+        return new User();
+    }
+
+    private async Task ConnectToNotificationHub()
+    {
+        await JSRuntime.InvokeVoidAsync("connectToNotificationHub");
+    }
+}
+
+<style>
+    .app-container {
+        display: flex;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+    }
+
+    .sidebar-container {
+        width: 280px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        position: fixed;
+        height: 100vh;
+        z-index: 1000;
+    }
+
+    .main-content {
+        flex: 1;
+        margin-left: 280px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content-area {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .notification-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+    }
+
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+
+    @@media (max-width: 768px) {
+        .sidebar-container {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-container.active {
+            transform: translateX(0);
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+    }
+</style>

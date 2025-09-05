@@ -21,5 +21,7 @@ namespace InstagramBot.Core.Entities
         public DbSet<Log> Logs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<MediaFile> MediaFiles { get; set; }
+        //public DbSet<User> Users { get; set; }
     }
 }

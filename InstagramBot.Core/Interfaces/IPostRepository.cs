@@ -13,6 +13,7 @@ namespace InstagramBot.Core.Interfaces
         Task<Post> CreateAsync(Post post);
         Task<Post> UpdateAsync(Post post);
         Task<List<Post>> GetByAccountIdAsync(int accountId);
+        Task<Post> GetByIdAsync(int postId);
     }
 
 }

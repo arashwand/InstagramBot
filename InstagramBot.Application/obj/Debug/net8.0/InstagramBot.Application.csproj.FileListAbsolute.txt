@@ -13,3 +13,9 @@ D:\repos\InstagramBot.Web\InstagramBot.Application\obj\Debug\net8.0\InstagramBot
 D:\repos\InstagramBot.Web\InstagramBot.Application\obj\Debug\net8.0\refint\InstagramBot.Application.dll
 D:\repos\InstagramBot.Web\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.pdb
 D:\repos\InstagramBot.Web\InstagramBot.Application\obj\Debug\net8.0\ref\InstagramBot.Application.dll
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.csproj.AssemblyReference.cache
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.AssemblyInfoInputs.cache
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.AssemblyInfo.cs
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.csproj.CoreCompileInputs.cache
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.sourcelink.json

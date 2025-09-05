@@ -10,3 +10,16 @@ D:\repos\InstagramBot.Web\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.d
 D:\repos\InstagramBot.Web\InstagramBot.Core\obj\Debug\net8.0\refint\InstagramBot.Core.dll
 D:\repos\InstagramBot.Web\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.pdb
 D:\repos\InstagramBot.Web\InstagramBot.Core\obj\Debug\net8.0\ref\InstagramBot.Core.dll
+D:\repos\InstagramBot\InstagramBot.Core\bin\Debug\net8.0\InstagramBot.Core.deps.json
+D:\repos\InstagramBot\InstagramBot.Core\bin\Debug\net8.0\InstagramBot.Core.dll
+D:\repos\InstagramBot\InstagramBot.Core\bin\Debug\net8.0\InstagramBot.Core.pdb
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.csproj.AssemblyReference.cache
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.AssemblyInfoInputs.cache
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.AssemblyInfo.cs
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.csproj.CoreCompileInputs.cache
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.sourcelink.json
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.dll
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\refint\InstagramBot.Core.dll
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.pdb
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\ref\InstagramBot.Core.dll
