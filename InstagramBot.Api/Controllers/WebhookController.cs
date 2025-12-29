@@ -1,5 +1,5 @@
-﻿using InstagramBot.Application.DTOs;
-using InstagramBot.Application.Services.Interfaces;
+﻿using InstagramBot.Application.Services.Interfaces;
+using InstagramBot.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 

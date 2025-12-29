@@ -1,3 +1,4 @@
+﻿
 ﻿using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -85,23 +86,24 @@ namespace InstagramBot.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<object>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<List<Post>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate)
         {
             return await _context.Posts
                 .Where(p => p.AccountId == accountId &&
                             p.PublishedDate.HasValue &&
                             p.PublishedDate >= fromDate &&
                             p.PublishedDate <= toDate)
-                .Select(p => new
+                .Select(p => new Post
                 {
-                    p.Id,
-                    p.InstagramMediaId,
-                    p.Caption,
-                    p.PublishedDate,
-                    p.LikesCount,
-                    p.CommentsCount
+                    Id = p.Id,
+                    InstagramMediaId = p.InstagramMediaId,
+                    Caption = p.Caption,
+                    PublishedDate = p.PublishedDate,
+                    LikesCount = p.LikesCount,
+                    CommentsCount = p.CommentsCount
                 })
                 .ToListAsync();
         }
+
     }
 }
