@@ -24,6 +24,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/repos/InstagramBot/InstagramBot.Web/Components/Layout/MainLayout-old.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC1vbGQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/repos/InstagramBot/InstagramBot.Web/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -144,6 +148,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRm9ybXNcUG9zdEZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/LoadingSpinner.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcTG9hZGluZ1NwaW5uZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Modals/ConfirmModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcTW9kYWxzXENvbmZpcm1Nb2RhbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -195,6 +203,10 @@ build_metadata.AdditionalFiles.CssScope = b-vqirg2xrx7
 [D:/repos/InstagramBot/InstagramBot.Web/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-3dwq5gzz7g
+
+[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
 
 [D:/repos/InstagramBot/InstagramBot.Web/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s

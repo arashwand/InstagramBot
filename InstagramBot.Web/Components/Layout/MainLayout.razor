@@ -1,120 +1,360 @@
-﻿@inherits LayoutView
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Web
+@using InstagramBot.Application.Services.Interfaces
+@using InstagramBot.Core.Entities
 @inject IJSRuntime JSRuntime
 @inject INotificationService NotificationService
-@using InstagramBot.Core
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inherits LayoutView
 
-<div class="app-container">
-    <CascadingValue Value="@currentUser">
-        <div class="sidebar-container">
-            <Sidebar />
-        </div>
-
-        <div class="main-content">
-            <TopBar />
-
-            <main class="content-area">
-                @Body
-            </main>
-        </div>
-    </CascadingValue>
-
-    <!-- Notification Container -->
-    <div id="notification-container" class="notification-container"></div>
-
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay d-none">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">در حال بارگذاری...</span>
-        </div>
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
     </div>
+
+    <main>
+        <div class="top-row px-4 auth">
+            <div class="d-flex align-items-center">
+                <!-- نوتیفیکیشن بل -->
+                <div class="notification-bell me-3">
+                    <button class="btn btn-outline-light position-relative" @onclick="ToggleNotifications">
+                        <i class="fas fa-bell"></i>
+                        @if (unreadNotificationsCount > 0)
+                        {
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                @unreadNotificationsCount
+                            </span>
+                        }
+                    </button>
+                </div>
+
+                <!-- منوی کاربر -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-2"></i>
+                        @currentUserName
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="/settings/profile">
+                            <i class="fas fa-user me-2"></i>پروفایل
+                        </a></li>
+                        <li><a class="dropdown-item" href="/settings/security">
+                            <i class="fas fa-shield-alt me-2"></i>امنیت
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout">
+                            <i class="fas fa-sign-out-alt me-2"></i>خروج
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <article class="content px-4">
+            <!-- نوتیفیکیشن پنل -->
+            @if (showNotifications)
+            {
+                <div class="notification-panel">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">اعلان‌ها</h6>
+                            <button class="btn btn-sm btn-outline-secondary" @onclick="MarkAllAsRead">
+                                علامت‌گذاری همه به عنوان خوانده شده
+                            </button>
+                        </div>
+                        <div class="card-body p-0">
+                            @if (notifications.Any())
+                            {
+                                @foreach (var notification in notifications.Take(10))
+                                {
+                                    <div class="notification-item @(notification.IsRead ? "" : "unread")" 
+                                         @onclick="() => MarkAsRead(notification.Id)">
+                                        <div class="notification-icon">
+                                            <i class="fas @GetNotificationIcon(notification.Type)"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <div class="notification-message">@notification.Message</div>
+                                            <div class="notification-time">@notification.CreatedAt.ToString("yyyy/MM/dd HH:mm")</div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-center p-3 text-muted">
+                                    <i class="fas fa-bell-slash fa-2x mb-2"></i>
+                                    <div>اعلانی وجود ندارد</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- محتوای اصلی -->
+            @Body
+        </article>
+    </main>
+</div>
+
+<!-- Toast Container برای نمایش اعلان‌های بلادرنگ -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    @foreach (var toast in toastNotifications)
+    {
+        <div class="toast show" role="alert">
+            <div class="toast-header">
+                <i class="fas @GetNotificationIcon(toast.Type) me-2"></i>
+                <strong class="me-auto">@GetNotificationTitle(toast.Type)</strong>
+                <small>@toast.Time.ToString("HH:mm")</small>
+                <button type="button" class="btn-close" @onclick="() => RemoveToast(toast.Id)"></button>
+            </div>
+            <div class="toast-body">
+                @toast.Message
+            </div>
+        </div>
+    }
 </div>
 
 @code {
-    
-    private User currentUser;
+    private string currentUserName = "";
+    private bool showNotifications = false;
+    private int unreadNotificationsCount = 0;
+    private List<NotificationDto> notifications = new();
+    private List<ToastNotification> toastNotifications = new();
+    private HubConnection? notificationHubConnection;
 
     protected override async Task OnInitializedAsync()
     {
         // دریافت اطلاعات کاربر جاری
-        currentUser = await GetCurrentUserAsync();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        currentUserName = authState.User?.Identity?.Name ?? "کاربر";
 
-        // اتصال به SignalR Hub
-        await ConnectToNotificationHub();
+        // راه‌اندازی SignalR
+        await InitializeSignalR();
+
+        // بارگذاری اعلان‌های اولیه
+        await LoadNotifications();
     }
 
-    private async Task<User> GetCurrentUserAsync()
+    private async Task InitializeSignalR()
     {
-        // پیاده‌سازی دریافت کاربر جاری
-        return new User();
+        notificationHubConnection = new HubConnectionBuilder()
+            .WithUrl("/notificationHub")
+            .Build();
+
+        notificationHubConnection.On<string, string>("ReceiveNotification", async (message, type) =>
+        {
+            var toastId = Guid.NewGuid();
+            var toast = new ToastNotification
+            {
+                Id = toastId,
+                Message = message,
+                Type = type,
+                Time = DateTime.Now
+            };
+
+            toastNotifications.Add(toast);
+            unreadNotificationsCount++;
+            
+            await InvokeAsync(StateHasChanged);
+
+            // حذف خودکار toast پس از 5 ثانیه
+            _ = Task.Delay(5000).ContinueWith(async _ =>
+            {
+                toastNotifications.RemoveAll(t => t.Id == toastId);
+                await InvokeAsync(StateHasChanged);
+            });
+        });
+
+        await notificationHubConnection.StartAsync();
     }
 
-    private async Task ConnectToNotificationHub()
+    private async Task LoadNotifications()
     {
-        await JSRuntime.InvokeVoidAsync("connectToNotificationHub");
+        // اینجا باید از سرویس نوتیفیکیشن برای بارگذاری اعلان‌ها استفاده کنید
+        // notifications = await NotificationService.GetUserNotificationsAsync();
+        // unreadNotificationsCount = notifications.Count(n => !n.IsRead);
     }
-}
+
+    private void ToggleNotifications()
+    {
+        showNotifications = !showNotifications;
+    }
+
+    private async Task MarkAsRead(int notificationId)
+    {
+        // علامت‌گذاری اعلان به عنوان خوانده شده
+        var notification = notifications.FirstOrDefault(n => n.Id == notificationId);
+        if (notification != null && !notification.IsRead)
+        {
+            notification.IsRead = true;
+            unreadNotificationsCount--;
+            // await NotificationService.MarkAsReadAsync(notificationId);
+        }
+    }
+
+    private async Task MarkAllAsRead()
+    {
+        foreach (var notification in notifications.Where(n => !n.IsRead))
+        {
+            notification.IsRead = true;
+        }
+        unreadNotificationsCount = 0;
+        // await NotificationService.MarkAllAsReadAsync();
+    }
+
+    private void RemoveToast(Guid toastId)
+    {
+        toastNotifications.RemoveAll(t => t.Id == toastId);
+    }
+
+    private string GetNotificationIcon(string type) => type switch
+    {
+        "Success" => "fa-check-circle text-success",
+        "Warning" => "fa-exclamation-triangle text-warning",
+        "Error" => "fa-times-circle text-danger",
+        _ => "fa-info-circle text-info"
+    };
+
+    private string GetNotificationTitle(string type) => type switch
+    {
+        "Success" => "موفقیت",
+        "Warning" => "هشدار",
+        "Error" => "خطا",
+        _ => "اطلاعات"
+    };
+
+    public async ValueTask DisposeAsync()
+    {
+        if (notificationHubConnection is not null)
+        {
+            await notificationHubConnection.DisposeAsync();
+        }
+   
+    }
+}    
 
 <style>
-    .app-container {
-        display: flex;
-        min-height: 100vh;
-        background-color: #f8f9fa;
-    }
-
-    .sidebar-container {
-        width: 280px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-        position: fixed;
-        height: 100vh;
-        z-index: 1000;
-    }
-
-    .main-content {
-        flex: 1;
-        margin-left: 280px;
+    .page {
+        position: relative;
         display: flex;
         flex-direction: column;
+        min-height: 100vh;
     }
 
-    .content-area {
-        flex: 1;
-        padding: 20px;
-        overflow-y: auto;
-    }
-
-    .notification-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-    }
-
-    .loading-overlay {
+    .sidebar {
+        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+        width: 260px;
+        height: 100vh;
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000;
+        z-index: 1000;
+        overflow-y: auto;
     }
 
-    @@media (max-width: 768px) {
-        .sidebar-container {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
+    .top-row {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #d6d5d5;
+        justify-content: flex-end;
+        height: 3.5rem;
+        display: flex;
+        align-items: center;
+        margin-left: 260px;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
+
+    .content {
+        margin-left: 260px;
+        padding-top: 1rem;
+        min-height: calc(100vh - 3.5rem);
+        background-color: #f8f9fa;
+    }
+
+    .notification-bell {
+        position: relative;
+    }
+
+    .notification-panel {
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 350px;
+        z-index: 1050;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+        .notification-item:hover {
+            background-color: #f8f9fa;
         }
 
-        .sidebar-container.active {
-            transform: translateX(0);
+        .notification-item.unread {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
         }
 
-        .main-content {
-            margin-left: 0;
-        }
+    .notification-icon {
+        margin-left: 12px;
+        font-size: 1.2rem;
+    }
+
+    .notification-content {
+        flex: 1;
+    }
+
+    .notification-message {
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+
+    .notification-time {
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+    .toast-container {
+        z-index: 1060;
+    }
+
+    .toast {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .sidebar
+
+    {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .top-row, .content {
+        margin-left: 0;
+    }
+
+    .notification-panel {
+        width: calc(100vw - 40px);
+        right: 20px;
+        left: 20px;
+    }
+
     }
 </style>
+
+        

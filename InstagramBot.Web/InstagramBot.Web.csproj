@@ -7,15 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Services\" />
+    <Content Remove="Pages\Dashboard-html.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Pages\Dashboard-html.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Services\" />
+    <Folder Include="Hubs\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.Core" Version="1.8.21" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.8.21" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InstagramBot.Application\InstagramBot.Application.csproj" />
     <ProjectReference Include="..\InstagramBot.Core\InstagramBot.Core.csproj" />
+    <ProjectReference Include="..\InstagramBot.Infrastructure\InstagramBot.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

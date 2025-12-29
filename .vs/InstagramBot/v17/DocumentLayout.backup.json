@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\repos\\InstagramBot\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|d:\\repos\\instagrambot\\instagrambot.application\\services\\performancecomparisonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|solutionrelative:instagrambot.application\\services\\performancecomparisonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|d:\\repos\\instagrambot\\instagrambot.application\\services\\interfaces\\iperformancecomparisonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|solutionrelative:instagrambot.application\\services\\interfaces\\iperformancecomparisonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\wwwroot\\js\\dashboard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\wwwroot\\js\\dashboard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 183,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,6 +47,49 @@
             {
               "$type": "Bookmark",
               "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PerformanceComparisonService.cs",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\PerformanceComparisonService.cs",
+              "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\PerformanceComparisonService.cs",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\PerformanceComparisonService.cs",
+              "RelativeToolTip": "InstagramBot.Application\\Services\\PerformanceComparisonService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:19:54.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IPerformanceComparisonService.cs",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\Interfaces\\IPerformanceComparisonService.cs",
+              "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\Interfaces\\IPerformanceComparisonService.cs",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\Interfaces\\IPerformanceComparisonService.cs",
+              "RelativeToolTip": "InstagramBot.Application\\Services\\Interfaces\\IPerformanceComparisonService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:15:22.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "dashboard.js",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\wwwroot\\js\\dashboard.js",
+              "RelativeDocumentMoniker": "InstagramBot.Web\\wwwroot\\js\\dashboard.js",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\wwwroot\\js\\dashboard.js",
+              "RelativeToolTip": "InstagramBot.Web\\wwwroot\\js\\dashboard.js",
+              "ViewState": "AgIAAJkBAAAAAAAAAAAUwMYBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-09-11T19:14:26.418Z",
+              "EditorCaption": ""
             }
           ]
         }

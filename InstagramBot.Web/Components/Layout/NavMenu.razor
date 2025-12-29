@@ -1,5 +1,320 @@
-﻿<h3>NavMenu</h3>
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <i class="fab fa-instagram me-2"></i>
+            ربات اینستاگرام
+        </a>
+        <button title="Navigation menu" class="navbar-toggler d-md-none" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="CollapseNavMenu">
+    <nav class="flex-column">
+        <!-- داشبورد -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> داشبورد
+            </NavLink>
+        </div>
+
+        <!-- مدیریت اکانت‌ها -->
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <i class="fas fa-users"></i>
+                مدیریت اکانت‌ها
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="accounts">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> لیست اکانت‌ها
+                    @if (accountsCount > 0)
+                    {
+                        <span class="badge bg-primary ms-auto">@accountsCount</span>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="accounts/create">
+                    <span class="oi oi-plus" aria-hidden="true"></span> افزودن اکانت
+                </NavLink>
+            </div>
+        </div>
+
+        <!-- مدیریت پست‌ها -->
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <i class="fas fa-images"></i>
+                مدیریت پست‌ها
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="posts">
+                    <span class="oi oi-grid-three-up" aria-hidden="true"></span> لیست پست‌ها
+                    @if (scheduledPostsCount > 0)
+                    {
+                        <span class="badge bg-warning ms-auto">@scheduledPostsCount</span>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="posts/schedule">
+                    <span class="oi oi-clock" aria-hidden="true"></span> زمان‌بندی پست
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="posts/analytics">
+                    <span class="oi oi-bar-chart" aria-hidden="true"></span> تحلیل پست‌ها
+                </NavLink>
+            </div>
+        </div>
+
+        <!-- مدیریت تعاملات -->
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <i class="fas fa-comments"></i>
+                مدیریت تعاملات
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="interactions/comments">
+                    <span class="oi oi-comment-square" aria-hidden="true"></span> کامنت‌ها
+                    @if (newCommentsCount > 0)
+                    {
+                        <span class="badge bg-info ms-auto">@newCommentsCount</span>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="interactions/messages">
+                    <span class="oi oi-envelope-closed" aria-hidden="true"></span> پیام‌ها
+                    @if (newMessagesCount > 0)
+                    {
+                        <span class="badge bg-success ms-auto">@newMessagesCount</span>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="interactions/automation">
+                    <span class="oi oi-cog" aria-hidden="true"></span> اتوماسیون
+                </NavLink>
+            </div>
+        </div>
+
+        <!-- مدیریت پروکسی‌ها -->
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <i class="fas fa-network-wired"></i>
+                مدیریت پروکسی‌ها
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="proxies">
+                    <span class="oi oi-globe" aria-hidden="true"></span> لیست پروکسی‌ها
+                    @if (activeProxiesCount > 0)
+                    {
+                        <span class="badge bg-success ms-auto">@activeProxiesCount</span>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="proxies/create">
+                    <span class="oi oi-plus" aria-hidden="true"></span> افزودن پروکسی
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="proxies/health">
+                    <span class="oi oi-pulse" aria-hidden="true"></span> وضعیت سلامت
+                    @if (unhealthyProxiesCount > 0)
+                    {
+                        <span class="badge bg-danger ms-auto">@unhealthyProxiesCount</span>
+                    }
+                </NavLink>
+            </div>
+        </div>
+
+        <!-- تحلیل و گزارش‌گیری -->
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <i class="fas fa-chart-line"></i>
+                تحلیل و گزارش‌گیری
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="analytics/dashboard">
+                    <span class="oi oi-dashboard" aria-hidden="true"></span> داشبورد تحلیلی
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="analytics/reports">
+                    <span class="oi oi-document" aria-hidden="true"></span> گزارش‌ها
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="analytics/insights">
+                    <span class="oi oi-eye" aria-hidden="true"></span> بینش‌ها
+                </NavLink>
+            </div>
+        </div>
+
+        <!-- تنظیمات -->
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <i class="fas fa-cog"></i>
+                تنظیمات
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="settings/profile">
+                    <span class="oi oi-person" aria-hidden="true"></span> پروفایل
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="settings/security">
+                    <span class="oi oi-shield" aria-hidden="true"></span> امنیت
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="settings/notifications">
+                    <span class="oi oi-bell" aria-hidden="true"></span> اعلان‌ها
+                </NavLink>
+            </div>
+        </div>
+    </nav>
+</div>
 
 @code {
+    private bool collapseNavMenu = true;
 
+    // آمارهای نمایشی در منو
+    private int accountsCount = 0;
+    private int scheduledPostsCount = 0;
+    private int newCommentsCount = 0;
+    private int newMessagesCount = 0;
+    private int activeProxiesCount = 0;
+    private int unhealthyProxiesCount = 0;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CollapseNavMenu()
+    {
+        collapseNavMenu = true;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // بارگذاری آمار برای نمایش در منو
+        await LoadNavigationStats();
+    }
+
+    private async Task LoadNavigationStats()
+    {
+        // اینجا باید از سرویس‌های مربوطه برای دریافت آمار استفاده کنید
+        // accountsCount = await AccountService.GetActiveAccountsCountAsync();
+        // scheduledPostsCount = await PostService.GetScheduledPostsCountAsync();
+        // newCommentsCount = await InteractionService.GetNewCommentsCountAsync();
+        // newMessagesCount = await InteractionService.GetNewMessagesCountAsync();
+        // activeProxiesCount = await ProxyService.GetActiveProxiesCountAsync();
+        // unhealthyProxiesCount = await ProxyService.GetUnhealthyProxiesCountAsync();
+    }
 }
+<style>
+    .navbar-toggler {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .top-row {
+        height: 3.5rem;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .oi {
+        width: 2rem;
+        font-size: 1.1rem;
+        vertical-align: text-top;
+        top: -2px;
+    }
+
+    .nav-item {
+        font-size: 0.9rem;
+        padding-bottom: 0.5rem;
+    }
+
+        .nav-item:first-of-type {
+            padding-top: 1rem;
+        }
+
+        .nav-item:last-of-type {
+            padding-bottom: 1rem;
+        }
+
+    .nav-link {
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+        color: #d7d7d7;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background-color: rgba(255,255,255,0.25);
+            color: white;
+        }
+
+    .nav-section {
+        margin: 1rem 0;
+    }
+
+    .nav-section-header {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #a0a0a0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        margin-bottom: 0.5rem;
+    }
+
+        .nav-section-header i {
+            margin-left: 0.5rem;
+        }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.25em 0.5em;
+        border-radius: 10px;
+    }
+
+    .nav-scrollable {
+        display: block;
+        overflow-y: auto;
+        height: calc(100vh - 3.5rem);
+    }
+
+    @@media (min-width: 768px) {
+        .navbar-toggler
+
+    {
+        display: none;
+    }
+
+    .collapse {
+        display: block !important;
+    }
+
+    }
+</style>

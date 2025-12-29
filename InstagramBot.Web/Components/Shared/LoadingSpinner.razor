@@ -1,0 +1,152 @@
+﻿<div class="loading-spinner">
+    <div class="spinner"></div>
+    @if (!string.IsNullOrEmpty(Message))
+    {
+        <div class="loading-message">@Message</div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Message { get; set; } = "";
+}
+```
+
+### Components/Shared/ConfirmDialog.razor
+
+```razor
+@if (IsVisible)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas @IconClass me-2"></i>
+                        @Title
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p>@Message</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="OnCancel">
+                        <i class="fas fa-times me-1"></i>
+                        لغو
+                    </button>
+                    <button type="button" class="btn @ConfirmButtonClass" @onclick="OnConfirm">
+                        <i class="fas @ConfirmIconClass me-1"></i>
+                        @ConfirmText
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public string Title { get; set; } = "تأیید";
+    [Parameter] public string Message { get; set; } = "";
+    [Parameter] public string ConfirmText { get; set; } = "تأیید";
+    [Parameter] public string ConfirmButtonClass { get; set; } = "btn-primary";
+    [Parameter] public string IconClass { get; set; } = "fa-question-circle";
+    [Parameter] public string ConfirmIconClass { get; set; } = "fa-check";
+    [Parameter] public EventCallback OnConfirm { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+}
+```
+
+### Components/Forms/AccountForm.razor
+
+```razor
+<EditForm Model="@Account" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label class="form-label">نام اکانت</label>
+        <InputText @bind-Value="Account.Username" class="form-control" placeholder="نام کاربری اینستاگرام" />
+        <ValidationMessage For="@(() => Account.Username)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">نام نمایشی</label>
+        <InputText @bind-Value="Account.DisplayName" class="form-control" placeholder="نام نمایشی اکانت" />
+        <ValidationMessage For="@(() => Account.DisplayName)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">توضیحات</label>
+        <InputTextArea @bind-Value="Account.Description" class="form-control" rows="3" placeholder="توضیحات اختیاری" />
+        <ValidationMessage For="@(() => Account.Description)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">پروکسی</label>
+        <InputSelect @bind-Value="Account.ProxyId" class="form-control">
+            <option value="">بدون پروکسی</option>
+            @foreach (var proxy in AvailableProxies)
+            {
+                <option value="@proxy.Id">@proxy.Name (@proxy.Host:@proxy.Port)</option>
+            }
+        </InputSelect>
+        <div class="form-text">انتخاب پروکسی برای این اکانت</div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check">
+            <InputCheckbox @bind-Value="Account.IsActive" class="form-check-input" id="isActive" />
+            <label class="form-check-label" for="isActive">
+                فعال
+            </label>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary" disabled="@IsSubmitting">
+            @if (IsSubmitting)
+            {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            <i class="fas fa-save me-1"></i>
+            ذخیره
+        </button>
+        <button type="button" class="btn btn-secondary" @onclick="OnCancel">
+            <i class="fas fa-times me-1"></i>
+            لغو
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public AccountFormModel Account { get; set; } = new();
+    [Parameter] public List<ProxyDto> AvailableProxies { get; set; } = new();
+    [Parameter] public EventCallback<AccountFormModel> OnValidSubmit { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public bool IsSubmitting { get; set; }
+
+    private async Task HandleValidSubmit()
+    {
+        await OnValidSubmit.InvokeAsync(Account);
+    }
+
+    public class AccountFormModel
+    {
+        [Required(ErrorMessage = "نام کاربری الزامی است")]
+        public string Username { get; set; } = "";
+
+        [Required(ErrorMessage = "نام نمایشی الزامی است")]
+        public string DisplayName { get; set; } = "";
+
+        public string Description { get; set; } = "";
+        public int? ProxyId { get; set; }
+        public bool IsActive { get; set; } = true;
+    }
+
+    public class ProxyDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public string Host { get; set; } = "";
+        public int Port { get; set; }
+    }
+}
