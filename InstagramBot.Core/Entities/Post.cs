@@ -23,10 +23,16 @@ namespace InstagramBot.Core.Entities
         public bool IsStory { get; set; }
         public string StoryLink { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool IsPublished { get; set; }
+        public string HangfireJobId { get; set; }
+        public object LikesCount { get; set; }
+        public object CommentsCount { get; set; }
+
+
 
         public Account Account { get; set; } // Navigation property
         public ICollection<Interaction> Interactions { get; set; } // Navigation property
         public ICollection<Analytic> Analytics { get; set; } // Navigation property
-
+       
     }
 }

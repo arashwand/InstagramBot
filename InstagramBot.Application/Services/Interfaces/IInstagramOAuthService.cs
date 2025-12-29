@@ -1,5 +1,5 @@
-﻿using InstagramBot.Application.DTOs;
-using InstagramBot.Core.Entities;
+﻿using InstagramBot.Core.Entities;
+using InstagramBot.DTOs;
 using System.Security.Principal;
 
 namespace InstagramBot.Application.Services.Interfaces

@@ -19,3 +19,15 @@ D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.App
 D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.AssemblyInfo.cs
 D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.csproj.CoreCompileInputs.cache
 D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.sourcelink.json
+D:\repos\InstagramBot\InstagramBot.Application\bin\Debug\net8.0\InstagramBot.Application.deps.json
+D:\repos\InstagramBot\InstagramBot.Application\bin\Debug\net8.0\InstagramBot.Application.dll
+D:\repos\InstagramBot\InstagramBot.Application\bin\Debug\net8.0\InstagramBot.Application.pdb
+D:\repos\InstagramBot\InstagramBot.Application\bin\Debug\net8.0\InstagramBot.Core.dll
+D:\repos\InstagramBot\InstagramBot.Application\bin\Debug\net8.0\InstagramBot.DTOs.dll
+D:\repos\InstagramBot\InstagramBot.Application\bin\Debug\net8.0\InstagramBot.Core.pdb
+D:\repos\InstagramBot\InstagramBot.Application\bin\Debug\net8.0\InstagramBot.DTOs.pdb
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\Instagra.CAEE1874.Up2Date
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.dll
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\refint\InstagramBot.Application.dll
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\InstagramBot.Application.pdb
+D:\repos\InstagramBot\InstagramBot.Application\obj\Debug\net8.0\ref\InstagramBot.Application.dll

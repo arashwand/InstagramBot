@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "53lTcBBCsk4=",
+  "dgSpecHash": "CoYRpThvmFk=",
   "success": true,
   "projectFilePath": "D:\\repos\\InstagramBot\\InstagramBot.Web\\InstagramBot.Web.csproj",
   "expectedPackageFiles": [
@@ -73,15 +73,5 @@
     "C:\\Users\\ArashWand\\.nuget\\packages\\system.text.encodings.web\\9.0.2\\system.text.encodings.web.9.0.2.nupkg.sha512",
     "C:\\Users\\ArashWand\\.nuget\\packages\\system.text.json\\9.0.2\\system.text.json.9.0.2.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
-      "projectPath": "D:\\repos\\InstagramBot\\InstagramBot.Web\\InstagramBot.Web.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\repos\\InstagramBot\\InstagramBot.Web\\InstagramBot.Web.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

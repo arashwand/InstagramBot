@@ -1,6 +1,6 @@
-﻿using InstagramBot.Application.DTOs;
-using InstagramBot.Application.Services.Interfaces;
+﻿using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Entities;
+using InstagramBot.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

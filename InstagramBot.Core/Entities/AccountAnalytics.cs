@@ -32,12 +32,13 @@
         public int VideoViews { get; set; }
         public int ProfileVisits { get; set; }
         public double EngagementRate { get; set; }
-        public string AudienceGender { get; set; } // JSON
-        public string AudienceAge { get; set; } // JSON
-        public string AudienceCountry { get; set; } // JSON
+        public string AudienceGender { get; set; }  // تغییر به string
+        public string AudienceAge { get; set; }     // تغییر به string
+        public string AudienceCountry { get; set; } // تغییر به string
         public DateTime CreatedDate { get; set; }
 
         public Post Post { get; set; }
+        public string? InstagramMediaId { get; set; }
     }
 
     public class AnalyticsSnapshot

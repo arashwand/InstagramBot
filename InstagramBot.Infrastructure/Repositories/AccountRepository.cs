@@ -154,5 +154,12 @@ namespace InstagramBot.Infrastructure.Repositories
 
             return account;
         }
+
+        public async Task<List<Account>> GetAllActiveAsync()
+        {
+            return await _context.Accounts
+                .Where(a => a.IsActive)
+                .ToListAsync();
+        }
     }
 }

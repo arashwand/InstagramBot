@@ -1,5 +1,6 @@
 ﻿using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Entities;
+using InstagramBot.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 
@@ -278,6 +279,16 @@ namespace InstagramBot.Application.Services
                 insights.Add($"{Math.Abs(postsChange)} پست کمتر منتشر شده است.");
 
             return insights;
+        }
+
+        public Task<Dictionary<string, object>> CompareBenchmarkAsync(int accountId, string industry)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Dictionary<string, object>>> GetCompetitorComparisonAsync(int accountId, List<string> competitorUsernames)
+        {
+            throw new NotImplementedException();
         }
     }
 }

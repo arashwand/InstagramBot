@@ -1,7 +1,7 @@
-﻿using InstagramBot.Application.DTOs;
-using InstagramBot.Application.Services.Interfaces;
+﻿using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
+using InstagramBot.DTOs;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -405,7 +405,8 @@ namespace InstagramBot.Application.Services
 
                 // بررسی دسترسی به فایل رسانه
                 using var httpClient = new HttpClient();
-                var response = await httpClient.HeadAsync(mediaUrl);
+                var request = new HttpRequestMessage(HttpMethod.Head, mediaUrl);
+                var response = await httpClient.SendAsync(request);
 
                 return response.IsSuccessStatusCode;
             }

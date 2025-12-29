@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace InstagramBot.Application.DTOs
+namespace InstagramBot.DTOs
 {
     public class RegisterDto
     {

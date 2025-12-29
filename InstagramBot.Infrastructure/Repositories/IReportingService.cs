@@ -1,9 +1,12 @@
-﻿using InstagramBot.Application.DTOs;
+﻿using InstagramBot.Application.Services;
 using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Interfaces;
+using InstagramBot.DTOs;
+using InstagramBot.Infrastructure.Repositories;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
-namespace InstagramBot.Application.Services
+namespace InstagramBot.Infrastructure.Repositories
 {
     public class ReportingService : IReportingService
     {

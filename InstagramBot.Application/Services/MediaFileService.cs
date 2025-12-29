@@ -1,8 +1,8 @@
 ﻿using FFMpegCore;
-using InstagramBot.Application.DTOs;
 using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
+using InstagramBot.DTOs;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;

@@ -1,11 +1,12 @@
-﻿using InstagramBot.Core.Entities;
+﻿using InstagramBot.DTOs;
+using InstagramBot.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InstagramBot.Infrastructure.Repositories
+namespace InstagramBot.Core.Interfaces
 {
     public interface IPostAnalyticsRepository
     {

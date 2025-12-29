@@ -1,0 +1,13 @@
+D:\repos\InstagramBot\InstagramBot.DTOs\bin\Debug\net8.0\InstagramBot.DTOs.deps.json
+D:\repos\InstagramBot\InstagramBot.DTOs\bin\Debug\net8.0\InstagramBot.DTOs.dll
+D:\repos\InstagramBot\InstagramBot.DTOs\bin\Debug\net8.0\InstagramBot.DTOs.pdb
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.csproj.AssemblyReference.cache
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.AssemblyInfoInputs.cache
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.AssemblyInfo.cs
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.csproj.CoreCompileInputs.cache
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.sourcelink.json
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.dll
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\refint\InstagramBot.DTOs.dll
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.pdb
+D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\ref\InstagramBot.DTOs.dll

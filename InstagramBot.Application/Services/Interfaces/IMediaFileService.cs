@@ -1,4 +1,4 @@
-﻿using InstagramBot.Application.DTOs;
+﻿using InstagramBot.DTOs;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

@@ -14,6 +14,10 @@ namespace InstagramBot.Core.Interfaces
         Task<Post> UpdateAsync(Post post);
         Task<List<Post>> GetByAccountIdAsync(int accountId);
         Task<Post> GetByIdAsync(int postId);
+        Task<List<Post>> GetRecentPublishedPostsAsync(int accountId, int days);
+        Task<List<Post>> GetScheduledPostsByUserIdAsync(int userId, int? accountId = null);
+        Task<List<Post>> GetPublishedPostsAsync(int accountId);
+        Task<IEnumerable<Post>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate);
     }
 
 }

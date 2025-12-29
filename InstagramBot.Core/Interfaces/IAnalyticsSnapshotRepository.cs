@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InstagramBot.Infrastructure.Repositories
+namespace InstagramBot.Core.Interfaces
 {
     public interface IAnalyticsSnapshotRepository
     {

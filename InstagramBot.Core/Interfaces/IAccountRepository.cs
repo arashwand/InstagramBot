@@ -15,5 +15,6 @@ namespace InstagramBot.Core.Interfaces
         Task<bool> DeleteAsync(int id);
         Task<List<Account>> GetByUserIdAsync(int userId);
         Task<Account> GetByInstagramUserIdAsync(string instagramUserId);
+        Task<List<Account>> GetAllActiveAsync();
     }
 }

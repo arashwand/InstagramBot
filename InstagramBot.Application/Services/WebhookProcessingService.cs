@@ -1,7 +1,7 @@
-﻿using InstagramBot.Application.DTOs;
-using InstagramBot.Application.Services.Interfaces;
+﻿using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
+using InstagramBot.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
@@ -18,6 +18,7 @@ namespace InstagramBot.Application.Services
         private readonly ICustomLogService _logService;
         private readonly IConfiguration _configuration;
         private readonly ILogger<WebhookProcessingService> _logger;
+        private readonly IAutoReplyService _autoReplyService;
 
         private readonly string _appSecret;
 
@@ -28,7 +29,8 @@ namespace InstagramBot.Application.Services
             IInstagramGraphApiClient apiClient,
             ICustomLogService logService,
             IConfiguration configuration,
-            ILogger<WebhookProcessingService> logger)
+            ILogger<WebhookProcessingService> logger,
+            IAutoReplyService autoReplyService)
         {
             _accountRepository = accountRepository;
             _postRepository = postRepository;
@@ -37,6 +39,7 @@ namespace InstagramBot.Application.Services
             _logService = logService;
             _configuration = configuration;
             _logger = logger;
+            _autoReplyService = autoReplyService;
 
             _appSecret = _configuration["Instagram:AppSecret"];
         }
@@ -49,13 +52,11 @@ namespace InstagramBot.Application.Services
 
                 foreach (var entry in webhook.Entry ?? new List<InstagramWebhookEntry>())
                 {
-                    // پردازش تغییرات (کامنت‌ها، منشن‌ها)
                     foreach (var change in entry.Changes ?? new List<InstagramWebhookChange>())
                     {
                         await ProcessChangeAsync(change);
                     }
 
-                    // پردازش پیام‌های دایرکت
                     foreach (var messaging in entry.Messaging ?? new List<InstagramWebhookMessaging>())
                     {
                         await ProcessDirectMessageAsync(messaging);
@@ -81,7 +82,7 @@ namespace InstagramBot.Application.Services
 
             try
             {
-                var expectedSignature = signature.Substring(7); // حذف "sha256="
+                var expectedSignature = signature.Substring(7);
                 var keyBytes = Encoding.UTF8.GetBytes(_appSecret);
                 var payloadBytes = Encoding.UTF8.GetBytes(payload);
 
@@ -123,7 +124,6 @@ namespace InstagramBot.Application.Services
 
                 _logger.LogInformation("Processing comment webhook for media {MediaId}", value.MediaId);
 
-                // پیدا کردن پست مربوطه
                 var post = await _postRepository.GetByInstagramMediaIdAsync(value.MediaId);
                 if (post == null)
                 {
@@ -131,7 +131,6 @@ namespace InstagramBot.Application.Services
                     return;
                 }
 
-                // پیدا کردن حساب مربوطه
                 var account = await _accountRepository.GetByIdAsync(post.AccountId);
                 if (account == null)
                 {
@@ -139,7 +138,6 @@ namespace InstagramBot.Application.Services
                     return;
                 }
 
-                // ایجاد رکورد تعامل
                 var interaction = new Interaction
                 {
                     AccountId = account.Id,
@@ -159,6 +157,9 @@ namespace InstagramBot.Application.Services
                     $"New comment received on post {post.Id} from @{value.From?.Username}");
 
                 _logger.LogInformation("Comment processed successfully for post {PostId}", post.Id);
+
+                // پردازش پاسخ خودکار
+                await _autoReplyService.ProcessAutoReplyAsync(account.Id, interaction.Id);
             }
             catch (Exception ex)
             {
@@ -175,7 +176,6 @@ namespace InstagramBot.Application.Services
 
                 _logger.LogInformation("Processing mention webhook for media {MediaId}", value.MediaId);
 
-                // پیدا کردن حساب مربوطه بر اساس recipient
                 var account = await _accountRepository.GetByInstagramUserIdAsync(value.Id);
                 if (account == null)
                 {
@@ -183,11 +183,10 @@ namespace InstagramBot.Application.Services
                     return;
                 }
 
-                // ایجاد رکورد تعامل برای منشن
                 var interaction = new Interaction
                 {
                     AccountId = account.Id,
-                    PostId = null, // منشن ممکن است مربوط به پست خاصی نباشد
+                    PostId = null,
                     InteractionType = "Mention",
                     SenderUsername = value.From?.Username,
                     SenderId = value.From?.Id,
@@ -217,7 +216,6 @@ namespace InstagramBot.Application.Services
 
                 _logger.LogInformation("Processing direct message webhook from {SenderId}", messaging.Sender?.Id);
 
-                // پیدا کردن حساب مربوطه
                 var account = await _accountRepository.GetByInstagramUserIdAsync(messaging.Recipient?.Id);
                 if (account == null)
                 {
@@ -225,7 +223,6 @@ namespace InstagramBot.Application.Services
                     return;
                 }
 
-                // ایجاد رکورد تعامل برای پیام دایرکت
                 var interaction = new Interaction
                 {
                     AccountId = account.Id,
@@ -252,4 +249,3 @@ namespace InstagramBot.Application.Services
         }
     }
 }
-

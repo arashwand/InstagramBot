@@ -1283,6 +1283,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "InstagramBot.DTOs": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.19",
           "Microsoft.EntityFrameworkCore": "8.0.19"
         },
@@ -1291,6 +1292,19 @@
         },
         "runtime": {
           "bin/placeholder/InstagramBot.Core.dll": {}
+        }
+      },
+      "InstagramBot.DTOs/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "5.0.17"
+        },
+        "compile": {
+          "bin/placeholder/InstagramBot.DTOs.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/InstagramBot.DTOs.dll": {}
         }
       }
     }
@@ -3071,6 +3085,11 @@
       "type": "project",
       "path": "../InstagramBot.Core/InstagramBot.Core.csproj",
       "msbuildProject": "../InstagramBot.Core/InstagramBot.Core.csproj"
+    },
+    "InstagramBot.DTOs/1.0.0": {
+      "type": "project",
+      "path": "../InstagramBot.DTOs/InstagramBot.DTOs.csproj",
+      "msbuildProject": "../InstagramBot.DTOs/InstagramBot.DTOs.csproj"
     }
   },
   "projectFileDependencyGroups": {

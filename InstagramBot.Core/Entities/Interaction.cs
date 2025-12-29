@@ -22,6 +22,9 @@ namespace InstagramBot.Core.Entities
         public string ReplyContent { get; set; }
         public DateTime ReceivedDate { get; set; }
 
+        public int? AutoReplyRuleId { get; set; }
+        public DateTime? AutoReplyTime { get; set; }
+
         public Account Account { get; set; } // Navigation property
         public Post Post { get; set; } // Navigation property
 

@@ -1,5 +1,5 @@
-﻿using InstagramBot.Application.DTOs;
-using InstagramBot.Core.Entities;
+﻿using InstagramBot.Core.Entities;
+using InstagramBot.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

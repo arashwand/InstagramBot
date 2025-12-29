@@ -23,3 +23,6 @@ D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.dll
 D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\refint\InstagramBot.Core.dll
 D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\InstagramBot.Core.pdb
 D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\ref\InstagramBot.Core.dll
+D:\repos\InstagramBot\InstagramBot.Core\bin\Debug\net8.0\InstagramBot.DTOs.dll
+D:\repos\InstagramBot\InstagramBot.Core\bin\Debug\net8.0\InstagramBot.DTOs.pdb
+D:\repos\InstagramBot\InstagramBot.Core\obj\Debug\net8.0\Instagra.8BF9CBCF.Up2Date

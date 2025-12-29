@@ -1,4 +1,4 @@
-﻿using InstagramBot.Application.DTOs;
+﻿using InstagramBot.DTOs;
 
 namespace InstagramBot.Application.Services.Interfaces
 {

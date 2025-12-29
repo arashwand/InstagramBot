@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InstagramBot.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51705cfac6bc53b051c25ed38e3466a8bf36bd79")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d66568ab91c32bb4ed5882ec7c21055ed319e55")]
 [assembly: System.Reflection.AssemblyProductAttribute("InstagramBot.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InstagramBot.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

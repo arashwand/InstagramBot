@@ -1,5 +1,5 @@
-﻿using InstagramBot.Application.DTOs;
-using InstagramBot.Application.Services.Interfaces;
+﻿using InstagramBot.Application.Services.Interfaces;
+using InstagramBot.DTOs;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 

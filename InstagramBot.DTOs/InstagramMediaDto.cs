@@ -1,4 +1,4 @@
-﻿namespace InstagramBot.Application.DTOs
+﻿namespace InstagramBot.DTOs
 {
     public class InstagramMediaDto
     {

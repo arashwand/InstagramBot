@@ -1,8 +1,8 @@
 ﻿using Hangfire;
-using InstagramBot.Application.DTOs;
 using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
+using InstagramBot.DTOs;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
