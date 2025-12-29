@@ -33,3 +33,5 @@ D:\repos\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.
 D:\repos\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\refint\InstagramBot.Infrastructure.dll
 D:\repos\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.pdb
 D:\repos\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\ref\InstagramBot.Infrastructure.dll
+D:\repos\InstagramBot\InstagramBot.Infrastructure\bin\Debug\net8.0\InstagramBot.DTOs.dll
+D:\repos\InstagramBot\InstagramBot.Infrastructure\bin\Debug\net8.0\InstagramBot.DTOs.pdb
