@@ -69,6 +69,33 @@ namespace InstagramBot.Application.Services
             }
         }
 
+        public async Task<Dictionary<string, object>> CompareBenchmarkAsync(int accountId, string industry)
+        {
+            try
+            {
+                // دریافت داده‌های عملکرد حساب
+                var accountData = await GetAccountPerformanceData(accountId);
+
+                // دریافت میانگین صنعت
+                var industryBenchmarks = GetIndustryBenchmarks(industry);
+
+                // مقایسه
+                var comparison = new Dictionary<string, object>
+                {
+                    ["accountPerformance"] = accountData,
+                    ["industryBenchmarks"] = industryBenchmarks,
+                    ["comparison"] = CompareWithBenchmark(accountData, industryBenchmarks)
+                };
+
+                return comparison;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error comparing benchmark for account {AccountId} in industry {Industry}", accountId, industry);
+                throw;
+            }
+        }
+
         public async Task<Dictionary<string, object>> GetPerformanceScoreAsync(int accountId, DateTime fromDate, DateTime toDate)
         {
             try
@@ -85,27 +112,25 @@ namespace InstagramBot.Application.Services
                     };
                 }
 
-                // محاسبه امتیازهای مختلف (از 0 تا 100)
-                var engagementScore = CalculateEngagementScore(postAnalytics);
-                var consistencyScore = CalculateConsistencyScore(postAnalytics);
-                var growthScore = CalculateGrowthScore(accountAnalytics);
-                var contentQualityScore = CalculateContentQualityScore(postAnalytics);
+                var engagement = postAnalytics.Average(p => p.EngagementRate);
+                var consistency = CalculateConsistency(postAnalytics);
+                var growth = CalculateFollowersGrowth(accountAnalytics);
+                var quality = CalculateContentQuality(postAnalytics);
 
-                var overallScore = (engagementScore + consistencyScore + growthScore + contentQualityScore) / 4;
+                var overallScore = (engagement + consistency + growth + quality) / 4;
 
-                return new Dictionary<string, object>
+                var score = new Dictionary<string, object>
                 {
-                    ["overallScore"] = Math.Round(overallScore, 1),
-                    ["breakdown"] = new
-                    {
-                        Engagement = Math.Round(engagementScore, 1),
-                        Consistency = Math.Round(consistencyScore, 1),
-                        Growth = Math.Round(growthScore, 1),
-                        ContentQuality = Math.Round(contentQualityScore, 1)
-                    },
-                    ["recommendations"] = GenerateRecommendations(engagementScore, consistencyScore, growthScore, contentQualityScore),
-                    ["grade"] = GetPerformanceGrade(overallScore)
+                    ["overallScore"] = Math.Round(overallScore, 2),
+                    ["engagement"] = Math.Round(engagement, 2),
+                    ["consistency"] = Math.Round(consistency, 2),
+                    ["growth"] = Math.Round(growth, 2),
+                    ["quality"] = Math.Round(quality, 2),
+                    ["grade"] = GetPerformanceGrade(overallScore),
+                    ["recommendations"] = GenerateRecommendations(engagement, consistency, growth, quality)
                 };
+
+                return score;
             }
             catch (Exception ex)
             {
@@ -114,105 +139,116 @@ namespace InstagramBot.Application.Services
             }
         }
 
-        private Dictionary<string, double> CalculatePeriodStats(List<PostAnalytics> postAnalytics, List<AccountAnalytics> accountAnalytics)
+        public async Task<List<Dictionary<string, object>>> GetCompetitorComparisonAsync(int accountId, List<string> competitorUsernames)
         {
-            return new Dictionary<string, double>
+            try
             {
-                ["totalPosts"] = postAnalytics.Count,
-                ["totalImpressions"] = postAnalytics.Sum(p => p.Impressions),
-                ["totalReach"] = postAnalytics.Sum(p => p.Reach),
-                ["totalLikes"] = postAnalytics.Sum(p => p.LikesCount),
-                ["totalComments"] = postAnalytics.Sum(p => p.CommentsCount),
-                ["averageEngagement"] = postAnalytics.Any() ? postAnalytics.Average(p => p.EngagementRate) : 0,
-                ["followersGrowth"] = CalculateFollowersGrowth(accountAnalytics)
-            };
+                var comparisons = new List<Dictionary<string, object>>();
+
+                // دریافت داده‌های حساب خود
+                var ownData = await GetAccountPerformanceData(accountId);
+
+                foreach (var competitor in competitorUsernames)
+                {
+                    // شبیه‌سازی دریافت داده‌های رقیب (در عمل باید از API یا دیتابیس گرفته شود)
+                    var competitorData = await GetCompetitorData(competitor);
+
+                    var comparison = new Dictionary<string, object>
+                    {
+                        ["competitorUsername"] = competitor,
+                        ["ownPerformance"] = ownData,
+                        ["competitorPerformance"] = competitorData,
+                        ["comparison"] = CompareCompetitor(ownData, competitorData)
+                    };
+
+                    comparisons.Add(comparison);
+                }
+
+                return comparisons;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting competitor comparison for account {AccountId}", accountId);
+                throw;
+            }
         }
 
-        private Dictionary<string, object> CalculateChanges(Dictionary<string, double> period1, Dictionary<string, double> period2)
+        private Dictionary<string, double> CalculatePeriodStats(List<PostAnalytics> postAnalytics, List<AccountAnalytics> accountAnalytics)
         {
-            var changes = new Dictionary<string, object>();
+            var stats = new Dictionary<string, double>
+            {
+                ["averageEngagement"] = postAnalytics.Any() ? postAnalytics.Average(p => p.EngagementRate) : 0,
+                ["totalPosts"] = postAnalytics.Count,
+                ["averageImpressions"] = postAnalytics.Any() ? postAnalytics.Average(p => p.Impressions) : 0,
+                ["averageReach"] = postAnalytics.Any() ? postAnalytics.Average(p => p.Reach) : 0,
+                ["followersCount"] = accountAnalytics.Any() ? accountAnalytics.Last().FollowersCount : 0
+            };
+
+            return stats;
+        }
+
+        private Dictionary<string, double> CalculateChanges(Dictionary<string, double> period1, Dictionary<string, double> period2)
+        {
+            var changes = new Dictionary<string, double>();
 
             foreach (var key in period1.Keys)
             {
-                if (period2.ContainsKey(key))
+                if (period1[key] != 0)
                 {
-                    var change = period1[key] != 0 ? ((period2[key] - period1[key]) / period1[key]) * 100 : 0;
-                    changes[key] = new
-                    {
-                        Value = Math.Round(change, 2),
-                        Direction = change > 0 ? "up" : change < 0 ? "down" : "stable",
-                        Percentage = $"{Math.Abs(change):F1}%"
-                    };
+                    changes[key] = ((period2[key] - period1[key]) / period1[key]) * 100;
+                }
+                else
+                {
+                    changes[key] = 0;
                 }
             }
 
             return changes;
         }
 
-        private double CalculateEngagementScore(List<PostAnalytics> analytics)
+        private double CalculateConsistency(List<PostAnalytics> analytics)
         {
             if (!analytics.Any()) return 0;
 
-            var avgEngagement = analytics.Average(p => p.EngagementRate);
+            var engagementRates = analytics.Select(a => a.EngagementRate).ToList();
+            var average = engagementRates.Average();
+            var variance = engagementRates.Sum(rate => Math.Pow(rate - average, 2)) / engagementRates.Count;
 
-            // امتیاز بر اساس نرخ تعامل (معیارهای صنعت)
-            if (avgEngagement >= 6) return 100;
-            if (avgEngagement >= 4) return 80;
-            if (avgEngagement >= 2) return 60;
-            if (avgEngagement >= 1) return 40;
-            return 20;
+            // Consistency score: lower variance = higher consistency
+            return Math.Max(0, 100 - variance);
         }
 
-        private double CalculateConsistencyScore(List<PostAnalytics> analytics)
-        {
-            if (analytics.Count < 7) return 0; // حداقل یک هفته پست
-
-            // محاسبه انحراف معیار نرخ تعامل
-            var engagementRates = analytics.Select(p => p.EngagementRate).ToList();
-            var mean = engagementRates.Average();
-            var variance = engagementRates.Sum(x => Math.Pow(x - mean, 2)) / engagementRates.Count;
-            var standardDeviation = Math.Sqrt(variance);
-
-            // امتیاز بر اساس ثبات (انحراف معیار کمتر = امتیاز بیشتر)
-            var consistencyScore = Math.Max(0, 100 - (standardDeviation * 10));
-            return Math.Min(100, consistencyScore);
-        }
-
-        private double CalculateGrowthScore(List<AccountAnalytics> analytics)
-        {
-            if (analytics.Count < 2) return 50; // امتیاز متوسط اگر داده کافی نباشد
-
-            var firstDay = analytics.OrderBy(a => a.Date).First();
-            var lastDay = analytics.OrderByDescending(a => a.Date).First();
-
-            var growthRate = firstDay.FollowersCount != 0
-                ? ((double)(lastDay.FollowersCount - firstDay.FollowersCount) / firstDay.FollowersCount) * 100
-                : 0;
-
-            // امتیاز بر اساس نرخ رشد
-            if (growthRate >= 10) return 100;
-            if (growthRate >= 5) return 80;
-            if (growthRate >= 2) return 60;
-            if (growthRate >= 0) return 40;
-            return 20;
-        }
-
-        private double CalculateContentQualityScore(List<PostAnalytics> analytics)
+        private double CalculateContentQuality(List<PostAnalytics> analytics)
         {
             if (!analytics.Any()) return 0;
 
-            // معیارهای کیفیت محتوا
-            var avgSaves = analytics.Average(p => p.SavesCount);
-            var avgShares = analytics.Average(p => p.SharesCount);
-            var avgCommentToLikeRatio = analytics.Average(p =>
-                p.LikesCount > 0 ? (double)p.CommentsCount / p.LikesCount : 0);
+            // Quality based on engagement per impression
+            var qualityScores = analytics.Select(a => a.Impressions > 0 ? (a.EngagementRate / a.Impressions) * 100 : 0).ToList();
+            return qualityScores.Average();
+        }
 
-            // امتیاز ترکیبی بر اساس ذخیره، اشتراک و نسبت کامنت به لایک
-            var saveScore = Math.Min(100, avgSaves * 2);
-            var shareScore = Math.Min(100, avgShares * 5);
-            var commentRatioScore = Math.Min(100, avgCommentToLikeRatio * 1000);
+        private double CalculateSaveScore(List<PostAnalytics> analytics)
+        {
+            if (!analytics.Any()) return 0;
 
-            return (saveScore + shareScore + commentRatioScore) / 3;
+            var saveRates = analytics.Select(a => a.Reach > 0 ? ((double)a.SavesCount / a.Reach) * 100 : 0).ToList();
+            return saveRates.Average();
+        }
+
+        private double CalculateShareScore(List<PostAnalytics> analytics)
+        {
+            if (!analytics.Any()) return 0;
+
+            var shareRates = analytics.Select(a => a.Reach > 0 ? ((double)a.SharesCount / a.Reach) * 100 : 0).ToList();
+            return shareRates.Average();
+        }
+
+        private double CalculateCommentRatio(List<PostAnalytics> analytics)
+        {
+            if (!analytics.Any()) return 0;
+
+            var commentRatios = analytics.Select(a => a.Reach > 0 ? ((double)a.CommentsCount / a.Reach) * 100 : 0).ToList();
+            return commentRatios.Average();
         }
 
         private List<string> GenerateRecommendations(double engagement, double consistency, double growth, double quality)
@@ -281,14 +317,123 @@ namespace InstagramBot.Application.Services
             return insights;
         }
 
-        public Task<Dictionary<string, object>> CompareBenchmarkAsync(int accountId, string industry)
+        private async Task<Dictionary<string, double>> GetAccountPerformanceData(int accountId)
         {
-            throw new NotImplementedException();
+            // دریافت داده‌های اخیر (مثلاً 30 روز گذشته)
+            var endDate = DateTime.UtcNow;
+            var startDate = endDate.AddDays(-30);
+
+            var postAnalytics = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, startDate, endDate);
+            var accountAnalytics = await _accountAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, startDate, endDate);
+
+            return new Dictionary<string, double>
+            {
+                ["engagementRate"] = postAnalytics.Any() ? postAnalytics.Average(p => p.EngagementRate) : 0,
+                ["followersGrowth"] = CalculateFollowersGrowth(accountAnalytics),
+                ["contentQuality"] = CalculateContentQuality(postAnalytics),
+                ["consistency"] = CalculateConsistency(postAnalytics)
+            };
         }
 
-        public Task<List<Dictionary<string, object>>> GetCompetitorComparisonAsync(int accountId, List<string> competitorUsernames)
+        private Dictionary<string, double> GetIndustryBenchmarks(string industry)
         {
-            throw new NotImplementedException();
+            // میانگین‌های استاندارد صنعت بر اساس داده‌های عمومی Instagram (قابل تنظیم)
+            switch (industry.ToLower())
+            {
+                case "fashion":
+                    return new Dictionary<string, double>
+                    {
+                        ["engagementRate"] = 2.5, // %
+                        ["followersGrowth"] = 1.2, // %
+                        ["contentQuality"] = 1.8,
+                        ["consistency"] = 75
+                    };
+                case "food":
+                    return new Dictionary<string, double>
+                    {
+                        ["engagementRate"] = 3.0,
+                        ["followersGrowth"] = 1.5,
+                        ["contentQuality"] = 2.2,
+                        ["consistency"] = 80
+                    };
+                case "travel":
+                    return new Dictionary<string, double>
+                    {
+                        ["engagementRate"] = 2.8,
+                        ["followersGrowth"] = 1.3,
+                        ["contentQuality"] = 2.0,
+                        ["consistency"] = 78
+                    };
+                default: // general
+                    return new Dictionary<string, double>
+                    {
+                        ["engagementRate"] = 2.0,
+                        ["followersGrowth"] = 1.0,
+                        ["contentQuality"] = 1.5,
+                        ["consistency"] = 70
+                    };
+            }
+        }
+
+        private Dictionary<string, object> CompareWithBenchmark(Dictionary<string, double> account, Dictionary<string, double> benchmark)
+        {
+            var comparison = new Dictionary<string, object>();
+
+            foreach (var key in account.Keys)
+            {
+                if (benchmark.ContainsKey(key))
+                {
+                    var difference = account[key] - benchmark[key];
+                    var status = difference > 0 ? "بالاتر از میانگین" : difference < 0 ? "پایین‌تر از میانگین" : "متوسط";
+                    comparison[key] = new
+                    {
+                        AccountValue = Math.Round(account[key], 2),
+                        BenchmarkValue = benchmark[key],
+                        Difference = Math.Round(difference, 2),
+                        Status = status
+                    };
+                }
+            }
+
+            return comparison;
+        }
+
+        private async Task<Dictionary<string, double>> GetCompetitorData(string username)
+        {
+            // شبیه‌سازی داده‌های رقیب (در پیاده‌سازی واقعی باید از Instagram API یا دیتابیس گرفته شود)
+            // برای سادگی، مقادیر تصادفی نزدیک به میانگین تولید می‌کنیم
+            var random = new Random(username.GetHashCode());
+
+            return new Dictionary<string, double>
+            {
+                ["engagementRate"] = random.Next(15, 40) / 10.0, // 1.5 to 4.0
+                ["followersGrowth"] = random.Next(5, 25) / 10.0, // 0.5 to 2.5
+                ["contentQuality"] = random.Next(10, 30) / 10.0, // 1.0 to 3.0
+                ["consistency"] = random.Next(60, 90) // 60 to 90
+            };
+        }
+
+        private Dictionary<string, object> CompareCompetitor(Dictionary<string, double> own, Dictionary<string, double> competitor)
+        {
+            var comparison = new Dictionary<string, object>();
+
+            foreach (var key in own.Keys)
+            {
+                if (competitor.ContainsKey(key))
+                {
+                    var difference = own[key] - competitor[key];
+                    var status = difference > 0 ? "بهتر" : difference < 0 ? "ضعیف‌تر" : "مشابه";
+                    comparison[key] = new
+                    {
+                        OwnValue = Math.Round(own[key], 2),
+                        CompetitorValue = Math.Round(competitor[key], 2),
+                        Difference = Math.Round(difference, 2),
+                        Status = status
+                    };
+                }
+            }
+
+            return comparison;
         }
     }
 }

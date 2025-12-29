@@ -39,6 +39,7 @@
 
         public Post Post { get; set; }
         public string? InstagramMediaId { get; set; }
+      
     }
 
     public class AnalyticsSnapshot

@@ -115,7 +115,7 @@ namespace InstagramBot.Infrastructure.Repositories
                 .Include(a => a.User)
                 .ToListAsync();
 
-            // رمزگشایی توکن‌ها برای همه حساب‌ها
+            // رمزگشایی توکن‌ها برای حساب‌ها
             foreach (var account in accounts)
             {
                 if (!string.IsNullOrEmpty(account.AccessToken))
@@ -135,12 +135,11 @@ namespace InstagramBot.Infrastructure.Repositories
         public async Task<Account> GetByInstagramUserIdAsync(string instagramUserId)
         {
             var account = await _context.Accounts
-                .Include(a => a.User)
                 .FirstOrDefaultAsync(a => a.InstagramUserId == instagramUserId);
 
             if (account != null)
             {
-                // رمزگشایی توکن‌ها هنگام خواندن از دیتابیس
+                // رمزگشایی توکن‌ها
                 if (!string.IsNullOrEmpty(account.AccessToken))
                 {
                     account.AccessToken = _encryptionService.Decrypt(account.AccessToken);
@@ -157,9 +156,26 @@ namespace InstagramBot.Infrastructure.Repositories
 
         public async Task<List<Account>> GetAllActiveAsync()
         {
-            return await _context.Accounts
+            var accounts = await _context.Accounts
                 .Where(a => a.IsActive)
+                .Include(a => a.User)
                 .ToListAsync();
+
+            // رمزگشایی توکن‌ها برای هر حساب
+            foreach (var account in accounts)
+            {
+                if (!string.IsNullOrEmpty(account.AccessToken))
+                {
+                    account.AccessToken = _encryptionService.Decrypt(account.AccessToken);
+                }
+
+                if (!string.IsNullOrEmpty(account.PageAccessToken))
+                {
+                    account.PageAccessToken = _encryptionService.Decrypt(account.PageAccessToken);
+                }
+            }
+
+            return accounts;
         }
     }
 }

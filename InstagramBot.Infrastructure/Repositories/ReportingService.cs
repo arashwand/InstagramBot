@@ -5,6 +5,11 @@ using InstagramBot.DTOs;
 using InstagramBot.Infrastructure.Repositories;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Globalization;
 
 namespace InstagramBot.Infrastructure.Repositories
 {
@@ -404,14 +409,159 @@ namespace InstagramBot.Infrastructure.Repositories
 
         public async Task<byte[]> ExportReportToPdfAsync(AnalyticsReportDto report)
         {
-            // پیاده‌سازی تولید PDF با استفاده از کتابخانه‌هایی مثل iTextSharp یا PdfSharp
-            throw new NotImplementedException("PDF export will be implemented using PDF generation library");
+            try
+            {
+                using (var document = new PdfDocument())
+                {
+                    var page = document.AddPage();
+                    var gfx = XGraphics.FromPdfPage(page);
+                    var font = new XFont("Arial", 12,XFontStyleEx.Regular);
+                    var titleFont = new XFont("Arial", 16, XFontStyleEx.Bold);
+
+                    double yPosition = 50;
+
+                    // عنوان
+                    gfx.DrawString("گزارش تحلیل اینستاگرام", titleFont, XBrushes.Black, new XRect(0, yPosition, page.Width, 30), XStringFormats.TopCenter);
+                    yPosition += 40;
+
+                    // اطلاعات دوره
+                    gfx.DrawString($"از تاریخ: {report.FromDate:yyyy/MM/dd} تا {report.ToDate:yyyy/MM/dd}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+
+                    // آمار کلی
+                    gfx.DrawString($"کل پست‌ها: {report.TotalPosts}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+                    gfx.DrawString($"کل استوری‌ها: {report.TotalStories}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+                    gfx.DrawString($"کل نمایش‌ها: {report.TotalImpressions:N0}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+                    gfx.DrawString($"کل دسترسی‌ها: {report.TotalReach:N0}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+                    gfx.DrawString($"کل لایک‌ها: {report.TotalLikes:N0}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+                    gfx.DrawString($"کل کامنت‌ها: {report.TotalComments:N0}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+                    gfx.DrawString($"میانگین تعامل: {report.AverageEngagementRate:F2}%", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 20;
+                    gfx.DrawString($"رشد فالوور: {report.FollowersGrowth:N0}", font, XBrushes.Black, 50, yPosition);
+                    yPosition += 40;
+
+                    // بهترین پست‌ها
+                    if (report.TopPosts != null && report.TopPosts.Any())
+                    {
+                        gfx.DrawString("بهترین پست‌ها:", titleFont, XBrushes.Black, 50, yPosition);
+                        yPosition += 20;
+                        foreach (var post in report.TopPosts.Take(5))
+                        {
+                            gfx.DrawString($"پست {post.PostId}: تعامل {post.EngagementRate:F2}%", font, XBrushes.Black, 50, yPosition);
+                            yPosition += 15;
+                        }
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        document.Save(stream, false);
+                        return stream.ToArray();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error exporting report to PDF");
+                throw;
+            }
         }
 
         public async Task<byte[]> ExportReportToExcelAsync(AnalyticsReportDto report)
         {
-            // پیاده‌سازی تولید Excel با استفاده از EPPlus یا ClosedXML
-            throw new NotImplementedException("Excel export will be implemented using Excel generation library");
+            try
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("گزارش تحلیل");
+
+                    // عنوان
+                    worksheet.Cells[1, 1].Value = "گزارش تحلیل اینستاگرام";
+                    worksheet.Cells[1, 1].Style.Font.Size = 16;
+                    worksheet.Cells[1, 1].Style.Font.Bold = true;
+
+                    // اطلاعات دوره
+                    worksheet.Cells[3, 1].Value = "از تاریخ";
+                    worksheet.Cells[3, 2].Value = report.FromDate.ToString("yyyy/MM/dd");
+                    worksheet.Cells[4, 1].Value = "تا تاریخ";
+                    worksheet.Cells[4, 2].Value = report.ToDate.ToString("yyyy/MM/dd");
+
+                    // آمار کلی
+                    worksheet.Cells[6, 1].Value = "آمار کلی";
+                    worksheet.Cells[6, 1].Style.Font.Bold = true;
+                    worksheet.Cells[7, 1].Value = "کل پست‌ها";
+                    worksheet.Cells[7, 2].Value = report.TotalPosts;
+                    worksheet.Cells[8, 1].Value = "کل استوری‌ها";
+                    worksheet.Cells[8, 2].Value = report.TotalStories;
+                    worksheet.Cells[9, 1].Value = "کل نمایش‌ها";
+                    worksheet.Cells[9, 2].Value = report.TotalImpressions;
+                    worksheet.Cells[10, 1].Value = "کل دسترسی‌ها";
+                    worksheet.Cells[10, 2].Value = report.TotalReach;
+                    worksheet.Cells[11, 1].Value = "کل لایک‌ها";
+                    worksheet.Cells[11, 2].Value = report.TotalLikes;
+                    worksheet.Cells[12, 1].Value = "کل کامنت‌ها";
+                    worksheet.Cells[12, 2].Value = report.TotalComments;
+                    worksheet.Cells[13, 1].Value = "میانگین تعامل";
+                    worksheet.Cells[13, 2].Value = $"{report.AverageEngagementRate:F2}%";
+                    worksheet.Cells[14, 1].Value = "رشد فالوور";
+                    worksheet.Cells[14, 2].Value = report.FollowersGrowth;
+
+                    // بهترین پست‌ها
+                    if (report.TopPosts != null && report.TopPosts.Any())
+                    {
+                        worksheet.Cells[16, 1].Value = "بهترین پست‌ها";
+                        worksheet.Cells[16, 1].Style.Font.Bold = true;
+                        worksheet.Cells[17, 1].Value = "شناسه پست";
+                        worksheet.Cells[17, 2].Value = "نرخ تعامل";
+
+                        int row = 18;
+                        foreach (var post in report.TopPosts.Take(10))
+                        {
+                            worksheet.Cells[row, 1].Value = post.PostId;
+                            worksheet.Cells[row, 2].Value = $"{post.EngagementRate:F2}%";
+                            row++;
+                        }
+                    }
+
+                    // آمار پست‌ها بر اساس روز (اگر موجود باشد)
+                    if (report.PostsByDay != null && report.PostsByDay.Any())
+                    {
+                        var postsSheet = package.Workbook.Worksheets.Add("پست‌ها بر اساس روز");
+                        postsSheet.Cells[1, 1].Value = "تاریخ";
+                        postsSheet.Cells[1, 2].Value = "تعداد پست";
+
+                        int row = 2;
+                        foreach (var item in report.PostsByDay)
+                        {
+                            postsSheet.Cells[row, 1].Value = item.Key;
+                            postsSheet.Cells[row, 2].Value = item.Value;
+                            row++;
+                        }
+                    }
+
+                    // تنظیم عرض ستون‌ها
+                    worksheet.Column(1).Width = 20;
+                    worksheet.Column(2).Width = 15;
+
+                    using (var stream = new MemoryStream())
+                    {
+                        package.SaveAs(stream);
+                        return stream.ToArray();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error exporting report to Excel");
+                throw;
+            }
         }
     }
 }
