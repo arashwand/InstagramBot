@@ -14,7 +14,7 @@ namespace InstagramBot.Application.Services.Interfaces
         Task CollectAllAccountsAnalyticsAsync();
         Task ProcessPendingAnalyticsAsync();
         Task<AccountAnalyticsDto> GetLatestAccountAnalyticsAsync(int accountId);
-        Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int accountId, DateTime fromDate, DateTime toDate);
+        Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate);
         Task ScheduleAnalyticsCollectionAsync();
     }
 }

@@ -10,13 +10,13 @@ namespace InstagramBot.Application.Services
 {
     public interface IReportingService
     {
-        Task<AnalyticsReportDto> GenerateAccountReportAsync(int accountId, DateTime fromDate, DateTime toDate);
-        Task<List<PostAnalytics>> GetTopPerformingPostsAsync(int accountId, DateTime fromDate, DateTime toDate, int count = 10);
-        Task<Dictionary<string, object>> GetEngagementTrendsAsync(int accountId, DateTime fromDate, DateTime toDate);
-        Task<Dictionary<string, object>> GetAudienceInsightsAsync(int accountId, DateTime fromDate, DateTime toDate);
-        Task<Dictionary<string, object>> GetBestPostingTimesAsync(int accountId);
-        Task<Dictionary<string, object>> GetHashtagPerformanceAsync(int accountId, DateTime fromDate, DateTime toDate);
-        Task<Dictionary<string, object>> GetCompetitorAnalysisAsync(int accountId, List<string> competitorUsernames);
+        Task<AnalyticsReportDto> GenerateAccountReportAsync(int userId, int accountId, DateTime fromDate, DateTime toDate);
+        Task<List<PostAnalytics>> GetTopPerformingPostsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate, int count = 10);
+        Task<Dictionary<string, object>> GetEngagementTrendsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate);
+        Task<Dictionary<string, object>> GetAudienceInsightsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate);
+        Task<Dictionary<string, object>> GetBestPostingTimesAsync(int userId, int accountId);
+        Task<Dictionary<string, object>> GetHashtagPerformanceAsync(int userId, int accountId, DateTime fromDate, DateTime toDate);
+        Task<Dictionary<string, object>> GetCompetitorAnalysisAsync(int userId, int accountId, List<string> competitorUsernames);
         Task<byte[]> ExportReportToPdfAsync(AnalyticsReportDto report);
         Task<byte[]> ExportReportToExcelAsync(AnalyticsReportDto report);
     }

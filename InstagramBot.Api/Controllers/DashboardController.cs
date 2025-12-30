@@ -21,7 +21,10 @@ namespace InstagramBot.Api.Controllers
         [HttpGet("stats")]
         public async Task<IActionResult> GetDashboardStats([FromQuery] string period = "هفته گذشته")
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var userId))
+            {
+                return Unauthorized("Invalid user identifier.");
+            }
             var stats = await _analyticsService.GetDashboardStatsAsync(userId, period);
             return Ok(stats);
         }
@@ -29,7 +32,10 @@ namespace InstagramBot.Api.Controllers
         [HttpGet("top-posts")]
         public async Task<IActionResult> GetTopPosts([FromQuery] int count = 5)
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var userId))
+            {
+                return Unauthorized("Invalid user identifier.");
+            }
             var posts = await _analyticsService.GetTopPostsAsync(userId, count);
             return Ok(posts);
         }

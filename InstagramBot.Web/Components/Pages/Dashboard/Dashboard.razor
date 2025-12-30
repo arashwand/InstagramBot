@@ -7,6 +7,8 @@
 @inject IActivityService ActivityService
 @inject IJSRuntime JSRuntime
 @inject NavigationManager Navigation
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @implements IAsyncDisposable
 
 <PageTitle>داشبورد - ربات اینستاگرام</PageTitle>
@@ -320,10 +322,16 @@
     {
         try
         {
-            dashboardStats = await AnalyticsService.GetDashboardStatsAsync(selectedPeriod);
-            topPosts = await AnalyticsService.GetTopPostsAsync(10);
-            scheduledPosts = await PostService.GetScheduledPostsAsync(10);
-            recentActivities = await ActivityService.GetRecentActivitiesAsync(10);
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+            if (user.Identity.IsAuthenticated)
+            {
+                var userId = int.Parse(user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+                dashboardStats = await AnalyticsService.GetDashboardStatsAsync(userId, selectedPeriod);
+                topPosts = await AnalyticsService.GetTopPostsAsync(userId, 10);
+                scheduledPosts = await PostService.GetScheduledPostsAsync(10); // Assuming this doesn't need userId for now
+                recentActivities = await ActivityService.GetRecentActivitiesAsync(10); // Assuming this doesn't need userId for now
+            }
         }
         catch (Exception ex)
         {

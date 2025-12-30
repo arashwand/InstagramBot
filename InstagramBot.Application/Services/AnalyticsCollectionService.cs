@@ -392,9 +392,9 @@ namespace InstagramBot.Application.Services
             };
         }
 
-        public async Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var analyticsData = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+            var analyticsData = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             return analyticsData.Select(a => new PostAnalyticsDto
             {

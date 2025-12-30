@@ -39,20 +39,20 @@ namespace InstagramBot.Infrastructure.Repositories
             _logger = logger;
         }
 
-        public async Task<AnalyticsReportDto> GenerateAccountReportAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<AnalyticsReportDto> GenerateAccountReportAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
             try
             {
                 _logger.LogInformation("Generating report for account {AccountId} from {FromDate} to {ToDate}",
                     accountId, fromDate, toDate);
 
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(accountId, userId);
                 if (account == null)
-                    throw new ArgumentException("حساب یافت نشد.");
+                    throw new ArgumentException("حساب یافت نشد یا شما به آن دسترسی ندارید.");
 
                 // دریافت آمار حساب
-                var accountAnalytics = await _accountAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
-                var postAnalytics = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+                var accountAnalytics = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
+                var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
                 // محاسبه آمار کلی
                 var totalImpressions = postAnalytics.Sum(p => p.Impressions);
@@ -83,10 +83,10 @@ namespace InstagramBot.Infrastructure.Repositories
                 }).ToList();
 
                 // آمار پست‌ها بر اساس روز
-                var postsByDay = await GetPostsByDayAsync(accountId, fromDate, toDate);
+                var postsByDay = await GetPostsByDayAsync(userId, accountId, fromDate, toDate);
 
                 // آمار تعامل بر اساس ساعت
-                var engagementByHour = await GetEngagementByHourAsync(accountId, fromDate, toDate);
+                var engagementByHour = await GetEngagementByHourAsync(userId, accountId, fromDate, toDate);
 
                 var report = new AnalyticsReportDto
                 {
@@ -115,9 +115,11 @@ namespace InstagramBot.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<PostAnalytics>> GetTopPerformingPostsAsync(int accountId, DateTime fromDate, DateTime toDate, int count = 10)
+        public async Task<List<PostAnalytics>> GetTopPerformingPostsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate, int count = 10)
         {
-            return await _postAnalyticsRepository.GetTopPostsByEngagementAsync(accountId, fromDate, toDate, count);
+            // Note: The userId is passed to the repository, but the current implementation of GetTopPostsByEngagementForUserAsync
+            // filters by userId, not accountId. If filtering by a specific account for a user is needed, the repo method should be updated.
+            return await _postAnalyticsRepository.GetTopPostsByEngagementForUserAsync(userId, fromDate, toDate, count);
 
             //return topPosts.Select(p => new PostAnalyticsDto
             //{
@@ -136,9 +138,9 @@ namespace InstagramBot.Infrastructure.Repositories
             //}).ToList();
         }
 
-        public async Task<Dictionary<string, object>> GetEngagementTrendsAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<Dictionary<string, object>> GetEngagementTrendsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var postAnalytics = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+            var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             var trends = postAnalytics
                 .GroupBy(p => p.Date.Date)
@@ -168,9 +170,9 @@ namespace InstagramBot.Infrastructure.Repositories
             };
         }
 
-        public async Task<Dictionary<string, object>> GetAudienceInsightsAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<Dictionary<string, object>> GetAudienceInsightsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var postAnalytics = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+            var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             var genderData = new Dictionary<string, int>();
             var ageData = new Dictionary<string, int>();
@@ -215,10 +217,10 @@ namespace InstagramBot.Infrastructure.Repositories
             };
         }
 
-        public async Task<Dictionary<string, object>> GetBestPostingTimesAsync(int accountId)
+        public async Task<Dictionary<string, object>> GetBestPostingTimesAsync(int userId, int accountId)
         {
-            var posts = await _postRepository.GetPublishedPostsAsync(accountId);
-            var postAnalytics = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, DateTime.UtcNow.AddDays(-90), DateTime.UtcNow);
+            var posts = await _postRepository.GetPublishedPostsAsync(accountId, userId);
+            var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, DateTime.UtcNow.AddDays(-90), DateTime.UtcNow);
 
             var postPerformance = posts
                 .Where(p => p.PublishedDate.HasValue)
@@ -261,10 +263,10 @@ namespace InstagramBot.Infrastructure.Repositories
             };
         }
 
-        public async Task<Dictionary<string, object>> GetHashtagPerformanceAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<Dictionary<string, object>> GetHashtagPerformanceAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
-            var postAnalytics = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate, userId);
+            var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             var hashtagPerformance = new Dictionary<string, List<double>>();
 
@@ -315,12 +317,12 @@ namespace InstagramBot.Infrastructure.Repositories
             };
         }
 
-        public async Task<Dictionary<string, object>> GetCompetitorAnalysisAsync(int accountId, List<string> competitorUsernames)
+        public async Task<Dictionary<string, object>> GetCompetitorAnalysisAsync(int userId, int accountId, List<string> competitorUsernames)
         {
             // این بخش نیاز به دسترسی به اطلاعات عمومی رقبا دارد
             // که ممکن است محدودیت‌هایی داشته باشد
 
-            var account = await _accountRepository.GetByIdAsync(accountId);
+            var account = await _accountRepository.GetByIdAsync(accountId, userId);
             var myAnalytics = await _accountAnalyticsRepository.GetLatestByAccountIdAsync(accountId);
 
             var competitorData = new List<object>();
@@ -368,9 +370,9 @@ namespace InstagramBot.Infrastructure.Repositories
             };
         }
 
-        private async Task<Dictionary<string, int>> GetPostsByDayAsync(int accountId, DateTime fromDate, DateTime toDate)
+        private async Task<Dictionary<string, int>> GetPostsByDayAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate, userId);
 
             return posts
                 .Where(p => p.PublishedDate.HasValue)
@@ -382,10 +384,10 @@ namespace InstagramBot.Infrastructure.Repositories
                 );
         }
 
-        private async Task<Dictionary<string, double>> GetEngagementByHourAsync(int accountId, DateTime fromDate, DateTime toDate)
+        private async Task<Dictionary<string, double>> GetEngagementByHourAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
-            var postAnalytics = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate, userId);
+            var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             var hourlyEngagement = posts
                 .Where(p => p.PublishedDate.HasValue)
