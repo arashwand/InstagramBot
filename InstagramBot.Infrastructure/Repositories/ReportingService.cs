@@ -10,6 +10,7 @@ using PdfSharp.Pdf;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Globalization;
+using InstagramBot.Core.Entities;
 
 namespace InstagramBot.Infrastructure.Repositories
 {
@@ -70,6 +71,17 @@ namespace InstagramBot.Infrastructure.Repositories
                 // دریافت بهترین پست‌ها
                 var topPosts = await GetTopPerformingPostsAsync(accountId, fromDate, toDate, 5);
 
+                var mapTopPosts = topPosts.Select(p => new TopPostDto
+                {
+                    Id = p.PostId,  // شناسه پست
+                    Caption = p.Post?.Caption ?? "",  // کپشن از Post
+                    ThumbnailUrl = p.Post?.MediaUrl?.Split(',').FirstOrDefault() ?? "",  // اولین رسانه به عنوان thumbnail
+                    AccountName = p.Post?.Account?.InstagramUsername ?? "",  // نام اکانت از Account
+                    LikesCount = p.LikesCount,
+                    CommentsCount = p.CommentsCount,
+                    PublishedAt = p.Post?.PublishedDate ?? p.Date  // تاریخ انتشار از Post یا Date
+                }).ToList();
+
                 // آمار پست‌ها بر اساس روز
                 var postsByDay = await GetPostsByDayAsync(accountId, fromDate, toDate);
 
@@ -88,7 +100,7 @@ namespace InstagramBot.Infrastructure.Repositories
                     TotalComments = totalComments,
                     AverageEngagementRate = averageEngagement,
                     FollowersGrowth = followersGrowth,
-                    TopPosts = topPosts,
+                    TopPosts = mapTopPosts,
                     PostsByDay = postsByDay,
                     EngagementByHour = engagementByHour
                 };
@@ -103,25 +115,25 @@ namespace InstagramBot.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<PostAnalyticsDto>> GetTopPerformingPostsAsync(int accountId, DateTime fromDate, DateTime toDate, int count = 10)
+        public async Task<List<PostAnalytics>> GetTopPerformingPostsAsync(int accountId, DateTime fromDate, DateTime toDate, int count = 10)
         {
-            var topPosts = await _postAnalyticsRepository.GetTopPostsByEngagementAsync(accountId, fromDate, toDate, count);
+            return await _postAnalyticsRepository.GetTopPostsByEngagementAsync(accountId, fromDate, toDate, count);
 
-            return topPosts.Select(p => new PostAnalyticsDto
-            {
-                PostId = p.PostId,
-                InstagramMediaId = p.Post?.InstagramMediaId,
-                Date = p.Date,
-                Impressions = p.Impressions,
-                Reach = p.Reach,
-                LikesCount = p.LikesCount,
-                CommentsCount = p.CommentsCount,
-                SavesCount = p.SavesCount,
-                SharesCount = p.SharesCount,
-                VideoViews = p.VideoViews,
-                ProfileVisits = p.ProfileVisits,
-                EngagementRate = p.EngagementRate
-            }).ToList();
+            //return topPosts.Select(p => new PostAnalyticsDto
+            //{
+            //    PostId = p.PostId,
+            //    InstagramMediaId = p.Post?.InstagramMediaId,
+            //    Date = p.Date,
+            //    Impressions = p.Impressions,
+            //    Reach = p.Reach,
+            //    LikesCount = p.LikesCount,
+            //    CommentsCount = p.CommentsCount,
+            //    SavesCount = p.SavesCount,
+            //    SharesCount = p.SharesCount,
+            //    VideoViews = p.VideoViews,
+            //    ProfileVisits = p.ProfileVisits,
+            //    EngagementRate = p.EngagementRate
+            //}).ToList();
         }
 
         public async Task<Dictionary<string, object>> GetEngagementTrendsAsync(int accountId, DateTime fromDate, DateTime toDate)
@@ -453,7 +465,7 @@ namespace InstagramBot.Infrastructure.Repositories
                         yPosition += 20;
                         foreach (var post in report.TopPosts.Take(5))
                         {
-                            gfx.DrawString($"پست {post.PostId}: تعامل {post.EngagementRate:F2}%", font, XBrushes.Black, 50, yPosition);
+                            gfx.DrawString($"پست {post.Id}: تعامل {post.EngagementRate:F2}%", font, XBrushes.Black, 50, yPosition);
                             yPosition += 15;
                         }
                     }
@@ -524,7 +536,7 @@ namespace InstagramBot.Infrastructure.Repositories
                         int row = 18;
                         foreach (var post in report.TopPosts.Take(10))
                         {
-                            worksheet.Cells[row, 1].Value = post.PostId;
+                            worksheet.Cells[row, 1].Value = post.Id;
                             worksheet.Cells[row, 2].Value = $"{post.EngagementRate:F2}%";
                             row++;
                         }

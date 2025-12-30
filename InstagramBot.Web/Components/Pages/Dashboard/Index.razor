@@ -1,10 +1,12 @@
 ﻿@page "/"
 @using InstagramBot.DTOs
 @using InstagramBot.Application.Services.Interfaces
+@using Microsoft.AspNetCore.SignalR.Client  // اضافه کردن برای HubConnection
 @inject IAnalyticsService AnalyticsService
 @inject IPostService PostService
 @inject IActivityService ActivityService
 @inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation  // اضافه کردن اگر نیاز باشد
 @implements IAsyncDisposable
 
 <PageTitle>داشبورد - ربات اینستاگرام</PageTitle>
@@ -27,10 +29,30 @@
                     @selectedPeriod
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('امروز')">امروز</a></li>
-                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('هفته گذشته')">هفته گذشته</a></li>
-                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('ماه گذشته')">ماه گذشته</a></li>
-                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('سه ماه گذشته')">سه ماه گذشته</a></li>
+                    <li>
+                        <a class="dropdown-item"
+                           @onclick="() => ChangePeriod('امروز')">
+                            امروز
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           @onclick="() => ChangePeriod('هفته گذشته')">
+                            هفته گذشته
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           @onclick="() => ChangePeriod('ماه گذشته')">
+                            ماه گذشته
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           @onclick="() => ChangePeriod('سه ماه گذشته')">
+                            سه ماه گذشته
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -235,8 +257,8 @@
                                         <td>
                                             <div class="post-caption">@(post.Caption.Length > 50 ? post.Caption.Substring(0, 50) + "..." : post.Caption)</div>
                                         </td>
-                                        <td>@post.AccountName</td>
-                                        <td>@post.ScheduledAt.ToString("yyyy/MM/dd HH:mm")</td>
+                                        <td>@post.AccountUsername</td>
+                                        <td>@post.ScheduledDate.ToString("yyyy/MM/dd HH:mm")</td>
                                         <td>
                                             <span class="badge @GetStatusBadgeClass(post.Status)">
                                                 @GetStatusText(post.Status)

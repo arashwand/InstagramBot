@@ -23,6 +23,7 @@ namespace InstagramBot.DTOs
         public int LikesCount { get; set; }
         public int CommentsCount { get; set; }
         public DateTime PublishedAt { get; set; }
+        public object EngagementRate { get; set; }
     }
 
 

@@ -1,6 +1,8 @@
 ﻿@page "/accounts"
 @using InstagramBot.DTOs
 @using InstagramBot.Application.Services.Interfaces
+@using System.ComponentModel.DataAnnotations  // اضافه کردن برای Required
+@using Microsoft.AspNetCore.Components.Forms  // اضافه کردن برای validation components
 @inject IAccountService AccountService
 @inject NavigationManager Navigation
 
@@ -28,7 +30,7 @@
 
                     <div class="mb-3">
                         <label for="username" class="form-label">نام کاربری اینستاگرام</label>
-                        <InputText id="username" @bind-Value="newAccount.InstagramUsername" class="form-control" placeholder="@username" />
+                        <InputText id="username" @bind-Value="newAccount.InstagramUsername" class="form-control" placeholder="نام کاربری اینستاگرام" />
                         <ValidationMessage For="@(() => newAccount.InstagramUsername)" />
                     </div>
 

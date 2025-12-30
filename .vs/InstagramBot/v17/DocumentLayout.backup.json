@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\repos\\InstagramBot\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\posts\\postmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\components\\pages\\posts\\postmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\accounts\\accountmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\components\\pages\\accounts\\accountmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\posts\\postmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\components\\pages\\posts\\postmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\dashboard\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -22,30 +22,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 183,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PostManagement.razor",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
               "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
               "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
               "RelativeToolTip": "InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-29T23:40:31.258Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "AccountManagement.razor",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
               "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
               "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
               "RelativeToolTip": "InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJwAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-29T23:38:37.555Z",
               "EditorCaption": ""

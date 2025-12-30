@@ -26,11 +26,11 @@ namespace InstagramBot.Application.Services
             {
                 Id = p.Id,
                 Caption = p.Caption,
-                MediaUrls = p.MediaUrls?.Split(',').ToList() ?? new List<string>(),
+                MediaUrls = p.MediaUrl?.Split(',').ToList() ?? new List<string>(),
                 InstagramMediaId = p.InstagramMediaId,
                 IsStory = p.IsStory,
-                ScheduledAt = p.ScheduledAt,
-                PublishedAt = p.PublishedAt,
+                ScheduledAt = p.ScheduledDate,
+                PublishedAt = p.PublishedDate,
                 Status = p.Status,
                 AccountId = p.AccountId
             }).ToList();
