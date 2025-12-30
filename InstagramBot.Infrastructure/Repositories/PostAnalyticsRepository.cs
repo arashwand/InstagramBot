@@ -40,18 +40,18 @@ namespace InstagramBot.Infrastructure.Repositories
                 .FirstOrDefaultAsync(p => p.PostId == postId && p.Date.Date == date.Date);
         }
 
-        public async Task<List<PostAnalytics>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<List<PostAnalytics>> GetByUserIdAndDateRangeAsync(int userId, DateTime fromDate, DateTime toDate)
         {
             return await _context.PostAnalytics
-                .Where(p => p.Post.AccountId == accountId && p.Date >= fromDate && p.Date <= toDate)
+                .Where(p => p.Post.Account.UserId == userId && p.Date >= fromDate && p.Date <= toDate)
                 .Include(p => p.Post)
                 .ToListAsync();
         }
 
-        public async Task<List<PostAnalytics>> GetTopPostsByEngagementAsync(int accountId, DateTime fromDate, DateTime toDate, int count)
+        public async Task<List<PostAnalytics>> GetTopPostsByEngagementForUserAsync(int userId, DateTime fromDate, DateTime toDate, int count)
         {
             var topPosts = await _context.PostAnalytics
-                .Where(p => p.Post.AccountId == accountId && p.Date >= fromDate && p.Date <= toDate)
+                .Where(p => p.Post.Account.UserId == userId && p.Date >= fromDate && p.Date <= toDate)
                 .Include(p => p.Post)
                 .OrderByDescending(p => p.EngagementRate)
                 .Take(count)
