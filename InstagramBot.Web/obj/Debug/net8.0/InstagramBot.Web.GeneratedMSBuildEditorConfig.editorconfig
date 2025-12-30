@@ -76,8 +76,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmRcQW5hbHl0aWNzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmRcSW5kZXgucmF6b3I=
+[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmRcRGFzaGJvYXJkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Overview.razor]

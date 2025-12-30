@@ -434,6 +434,10 @@
             "Hangfire.SqlServer": {
               "target": "Package",
               "version": "[1.8.21, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Client": {
+              "target": "Package",
+              "version": "[8.0.22, )"
             }
           },
           "imports": [

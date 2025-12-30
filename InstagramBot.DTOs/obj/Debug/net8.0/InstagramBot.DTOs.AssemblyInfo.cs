@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InstagramBot.DTOs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc28bb04c3987b539dee4f224fce8c8b684efcb2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2e6de5429267333b39a6078c135d41a8ba21c47")]
 [assembly: System.Reflection.AssemblyProductAttribute("InstagramBot.DTOs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InstagramBot.DTOs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

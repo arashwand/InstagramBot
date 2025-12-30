@@ -1,12 +1,12 @@
-﻿@page "/"
+﻿@page "/dashboard"
 @using InstagramBot.DTOs
 @using InstagramBot.Application.Services.Interfaces
-@using Microsoft.AspNetCore.SignalR.Client  // اضافه کردن برای HubConnection
+@using Microsoft.AspNetCore.SignalR.Client
 @inject IAnalyticsService AnalyticsService
 @inject IPostService PostService
 @inject IActivityService ActivityService
 @inject IJSRuntime JSRuntime
-@inject NavigationManager Navigation  // اضافه کردن اگر نیاز باشد
+@inject NavigationManager Navigation
 @implements IAsyncDisposable
 
 <PageTitle>داشبورد - ربات اینستاگرام</PageTitle>
@@ -29,30 +29,10 @@
                     @selectedPeriod
                 </button>
                 <ul class="dropdown-menu">
-                    <li>
-                        <a class="dropdown-item"
-                           @onclick="() => ChangePeriod('امروز')">
-                            امروز
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item"
-                           @onclick="() => ChangePeriod('هفته گذشته')">
-                            هفته گذشته
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item"
-                           @onclick="() => ChangePeriod('ماه گذشته')">
-                            ماه گذشته
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item"
-                           @onclick="() => ChangePeriod('سه ماه گذشته')">
-                            سه ماه گذشته
-                        </a>
-                    </li>
+                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('امروز')">امروز</a></li>
+                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('هفته گذشته')">هفته گذشته</a></li>
+                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('ماه گذشته')">ماه گذشته</a></li>
+                    <li><a class="dropdown-item" @onclick="() => ChangePeriod('سه ماه گذشته')">سه ماه گذشته</a></li>
                 </ul>
             </div>
         </div>
@@ -340,40 +320,22 @@
     {
         try
         {
-            // بارگذاری آمار کلیدی از سرویس واقعی
             dashboardStats = await AnalyticsService.GetDashboardStatsAsync(selectedPeriod);
-
-            // بارگذاری پست‌های برتر
             topPosts = await AnalyticsService.GetTopPostsAsync(10);
-
-            // بارگذاری پست‌های زمان‌بندی شده
             scheduledPosts = await PostService.GetScheduledPostsAsync(10);
-
-            // بارگذاری فعالیت‌های اخیر
             recentActivities = await ActivityService.GetRecentActivitiesAsync(10);
         }
         catch (Exception ex)
         {
-            // مدیریت خطا و استفاده از داده‌های پیش‌فرض در صورت عدم دسترسی
-            dashboardStats = new DashboardStatsDto
-            {
-                TotalAccounts = 15,
-                TotalPosts = 342,
-                TotalLikes = 12450,
-                TotalComments = 2341,
-                AccountsChange = 12.5,
-                PostsChange = 8.3,
-                LikesChange = 15.7,
-                CommentsChange = -2.1
-            };
-            // Log error
+            // مدیریت خطا
+            dashboardStats = new DashboardStatsDto { TotalAccounts = 0, TotalPosts = 0, TotalLikes = 0, TotalComments = 0 };
         }
     }
 
     private async Task InitializeSignalR()
     {
         analyticsHubConnection = new HubConnectionBuilder()
-            .WithUrl("/analyticsHub")
+            .WithUrl(Navigation.ToAbsoluteUri("/analyticsHub"))
             .Build();
 
         analyticsHubConnection.On<object>("ReceiveAnalyticsUpdate", async (data) =>
