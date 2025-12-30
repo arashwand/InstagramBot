@@ -34,7 +34,7 @@ namespace InstagramBot.Api.Controllers
             try
             {
                 // اعتبارسنجی مالکیت حساب
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -59,7 +59,7 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -84,7 +84,7 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -109,7 +109,7 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -134,7 +134,7 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -156,7 +156,7 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -181,13 +181,13 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
                 }
 
-                await _analyticsService.CollectAccountAnalyticsAsync(accountId);
+                await _analyticsService.CollectAccountAnalyticsAsync(userId, accountId);
                 return Ok(new { Message = "جمع‌آوری آمار با موفقیت آغاز شد." });
             }
             catch (Exception ex)
@@ -203,7 +203,7 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -212,7 +212,8 @@ namespace InstagramBot.Api.Controllers
                 var from = fromDate ?? DateTime.UtcNow.AddDays(-30);
                 var to = toDate ?? DateTime.UtcNow;
 
-                var report = await _reportingService.GenerateAccountReportAsync(accountId, from, to);
+
+                var report = await _reportingService.GenerateAccountReportAsync(userId,accountId, from, to);
                 var pdfBytes = await _reportingService.ExportReportToPdfAsync(report);
 
                 return File(pdfBytes, "application/pdf", $"report_{account.InstagramUsername}_{from:yyyyMMdd}_{to:yyyyMMdd}.pdf");

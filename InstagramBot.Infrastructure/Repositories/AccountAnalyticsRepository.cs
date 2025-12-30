@@ -32,23 +32,23 @@ namespace InstagramBot.Infrastructure.Repositories
             return analytics;
         }
 
-        public async Task<AccountAnalytics> GetByAccountAndDateAsync(int accountId, DateTime date)
+        public async Task<AccountAnalytics> GetByAccountAndDateAsync(int userId, int accountId, DateTime date)
         {
             return await _context.AccountAnalytics
-                .FirstOrDefaultAsync(a => a.AccountId == accountId && a.Date.Date == date.Date);
+                .FirstOrDefaultAsync(a => a.AccountId == accountId && a.Account.UserId == userId && a.Date.Date == date.Date);
         }
 
-        public async Task<List<AccountAnalytics>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<List<AccountAnalytics>> GetByUserIdAndDateRangeAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
             return await _context.AccountAnalytics
-                .Where(a => a.AccountId == accountId && a.Date >= fromDate && a.Date <= toDate)
+                .Where(a => a.AccountId == accountId && a.Account.UserId == userId && a.Date >= fromDate && a.Date <= toDate)
                 .ToListAsync();
         }
 
-        public async Task<AccountAnalytics> GetLatestByAccountIdAsync(int accountId)
+        public async Task<AccountAnalytics> GetLatestByAccountIdAsync(int userId, int accountId)
         {
             return await _context.AccountAnalytics
-                .Where(a => a.AccountId == accountId)
+                .Where(a => a.AccountId == accountId && a.Account.UserId == userId)
                 .OrderByDescending(a => a.Date)
                 .FirstOrDefaultAsync();
         }

@@ -51,7 +51,7 @@ namespace InstagramBot.Infrastructure.Repositories
                     throw new ArgumentException("حساب یافت نشد یا شما به آن دسترسی ندارید.");
 
                 // دریافت آمار حساب
-                var accountAnalytics = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
+                var accountAnalytics = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(accountId, userId, fromDate, toDate);
                 var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
                 // محاسبه آمار کلی
@@ -69,7 +69,7 @@ namespace InstagramBot.Infrastructure.Repositories
                     : 0;
 
                 // دریافت بهترین پست‌ها
-                var topPosts = await GetTopPerformingPostsAsync(accountId, fromDate, toDate, 5);
+                var topPosts = await GetTopPerformingPostsAsync(userId, accountId, fromDate, toDate, 5);
 
                 var mapTopPosts = topPosts.Select(p => new TopPostDto
                 {
@@ -265,7 +265,7 @@ namespace InstagramBot.Infrastructure.Repositories
 
         public async Task<Dictionary<string, object>> GetHashtagPerformanceAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate, userId);
+            var posts = await _postRepository.GetByAccountAndDateRangeAsync(userId, accountId, fromDate, toDate);
             var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             var hashtagPerformance = new Dictionary<string, List<double>>();
@@ -323,7 +323,7 @@ namespace InstagramBot.Infrastructure.Repositories
             // که ممکن است محدودیت‌هایی داشته باشد
 
             var account = await _accountRepository.GetByIdAsync(accountId, userId);
-            var myAnalytics = await _accountAnalyticsRepository.GetLatestByAccountIdAsync(accountId);
+            var myAnalytics = await _accountAnalyticsRepository.GetLatestByAccountIdAsync(userId, accountId);
 
             var competitorData = new List<object>();
 
@@ -372,7 +372,7 @@ namespace InstagramBot.Infrastructure.Repositories
 
         private async Task<Dictionary<string, int>> GetPostsByDayAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate, userId);
+            var posts = await _postRepository.GetByAccountAndDateRangeAsync(userId, accountId, fromDate, toDate);
 
             return posts
                 .Where(p => p.PublishedDate.HasValue)
@@ -386,7 +386,7 @@ namespace InstagramBot.Infrastructure.Repositories
 
         private async Task<Dictionary<string, double>> GetEngagementByHourAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var posts = await _postRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate, userId);
+            var posts = await _postRepository.GetByAccountAndDateRangeAsync(userId, accountId, fromDate, toDate);
             var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             var hourlyEngagement = posts
@@ -429,7 +429,7 @@ namespace InstagramBot.Infrastructure.Repositories
                 {
                     var page = document.AddPage();
                     var gfx = XGraphics.FromPdfPage(page);
-                    var font = new XFont("Arial", 12,XFontStyleEx.Regular);
+                    var font = new XFont("Arial", 12, XFontStyleEx.Regular);
                     var titleFont = new XFont("Arial", 16, XFontStyleEx.Bold);
 
                     double yPosition = 50;

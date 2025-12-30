@@ -11,8 +11,8 @@ namespace InstagramBot.Infrastructure.Repositories
     {
         Task<AccountAnalytics> CreateAsync(AccountAnalytics analytics);
         Task<AccountAnalytics> UpdateAsync(AccountAnalytics analytics);
-        Task<AccountAnalytics> GetByAccountAndDateAsync(int accountId, DateTime date);
-        Task<AccountAnalytics> GetLatestByAccountIdAsync(int accountId);
-        Task<List<AccountAnalytics>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate);
+        Task<AccountAnalytics> GetByAccountAndDateAsync(int userId, int accountId, DateTime date);
+        Task<AccountAnalytics> GetLatestByAccountIdAsync(int userId, int accountId);
+        Task<List<AccountAnalytics>> GetByUserIdAndDateRangeAsync( int userId, int accountId, DateTime fromDate, DateTime toDate);
     }
 }

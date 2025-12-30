@@ -31,11 +31,11 @@ namespace InstagramBot.Application.Services
             {
                 // دریافت آمار دوره اول
                 var period1Analytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, period1Start, period1End);
-                var period1Account = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, period1Start, period1End);
+                var period1Account = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId,accountId, period1Start, period1End);
 
                 // دریافت آمار دوره دوم
                 var period2Analytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, period2Start, period2End);
-                var period2Account = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, period2Start, period2End);
+                var period2Account = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId,accountId, period2Start, period2End);
 
                 // محاسبه آمار دوره اول
                 var period1Stats = CalculatePeriodStats(period1Analytics, period1Account);
@@ -69,12 +69,12 @@ namespace InstagramBot.Application.Services
             }
         }
 
-        public async Task<Dictionary<string, object>> CompareBenchmarkAsync(int accountId, string industry)
+        public async Task<Dictionary<string, object>> CompareBenchmarkAsync(int userId, int accountId, string industry)
         {
             try
             {
                 // دریافت داده‌های عملکرد حساب
-                var accountData = await GetAccountPerformanceData(accountId);
+                var accountData = await GetAccountPerformanceData(userId,accountId);
 
                 // دریافت میانگین صنعت
                 var industryBenchmarks = GetIndustryBenchmarks(industry);
@@ -101,7 +101,7 @@ namespace InstagramBot.Application.Services
             try
             {
                 var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
-                var accountAnalytics = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
+                var accountAnalytics = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId,accountId, fromDate, toDate);
 
                 if (!postAnalytics.Any() || !accountAnalytics.Any())
                 {
@@ -139,14 +139,14 @@ namespace InstagramBot.Application.Services
             }
         }
 
-        public async Task<List<Dictionary<string, object>>> GetCompetitorComparisonAsync(int accountId, List<string> competitorUsernames)
+        public async Task<List<Dictionary<string, object>>> GetCompetitorComparisonAsync(int userId, int accountId, List<string> competitorUsernames)
         {
             try
             {
                 var comparisons = new List<Dictionary<string, object>>();
 
                 // دریافت داده‌های حساب خود
-                var ownData = await GetAccountPerformanceData(accountId);
+                var ownData = await GetAccountPerformanceData(userId, accountId);
 
                 foreach (var competitor in competitorUsernames)
                 {
@@ -324,7 +324,7 @@ namespace InstagramBot.Application.Services
             var startDate = endDate.AddDays(-30);
 
             var postAnalytics = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, startDate, endDate);
-            var accountAnalytics = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, startDate, endDate);
+            var accountAnalytics = await _accountAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId,accountId, startDate, endDate);
 
             return new Dictionary<string, double>
             {

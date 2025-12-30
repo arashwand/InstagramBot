@@ -16,11 +16,11 @@ namespace InstagramBot.Infrastructure.Repositories
             _encryptionService = encryptionService;
         }
 
-        public async Task<Account> GetByIdAsync(int id)
+        public async Task<Account> GetByIdAsync(int accountId, int userId)
         {
             var account = await _context.Accounts
                 .Include(a => a.User)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == accountId && a.UserId == userId);
 
             if (account != null)
             {
@@ -94,7 +94,7 @@ namespace InstagramBot.Infrastructure.Repositories
 
             await _context.SaveChangesAsync();
 
-            return await GetByIdAsync(account.Id);
+            return await GetByIdAsync(account.Id, account.UserId);
         }
 
         public async Task<bool> DeleteAsync(int id)
