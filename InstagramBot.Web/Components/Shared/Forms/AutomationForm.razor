@@ -17,9 +17,9 @@
     </div>
 
     <div class="mb-3">
-        <label for="keyword" class="form-label">کلمه کلیدی</label>
-        <InputText id="keyword" @bind-Value="automationRule.Keyword" class="form-control" placeholder="کلمه کلیدی برای پاسخ" />
-        <ValidationMessage For="@(() => automationRule.Keyword)" />
+        <label for="keyword" class="form-label">کلمه کلیدی (با کاما جدا کنید)</label>
+        <InputText id="keyword" @bind-Value="keywordsInput" class="form-control" placeholder="کلمه کلیدی برای پاسخ" />
+        <ValidationMessage For="@(() => keywordsInput)" />
     </div>
 
     <div class="mb-3">
@@ -44,7 +44,7 @@
         @foreach (var rule in automationRules)
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                @rule.Keyword - @rule.Response
+                @string.Join(", ", rule.Keywords) - @rule.Response
                 <span class="badge @(rule.IsActive ? "bg-success" : "bg-secondary")">@(rule.IsActive ? "فعال" : "غیرفعال")</span>
             </li>
         }
@@ -55,6 +55,7 @@
     private AutomationRuleDto automationRule = new();
     private List<AutomationRuleDto> automationRules = new();
     private int currentUserId;
+    private string keywordsInput = ""; // ویژگی کمکی برای ورودی
 
     protected override async Task OnInitializedAsync()
     {
@@ -80,13 +81,20 @@
 
     private async Task SaveAutomationRule()
     {
+        // تبدیل رشته ورودی به لیست
+        automationRule.Keywords = keywordsInput.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(k => k.Trim())
+            .ToList();
+
         await AutoReplyService.CreateRuleAsync(automationRule, currentUserId);
         automationRule = new(); // ریست فرم
+        keywordsInput = ""; // ریست ورودی
         await LoadAutomationRules();
     }
 
     private void Cancel()
     {
         automationRule = new();
+        keywordsInput = "";
     }
 }

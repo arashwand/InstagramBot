@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "D:\\repos\\InstagramBot\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|d:\\repos\\instagrambot\\instagrambot.application\\services\\autoreplyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|solutionrelative:instagrambot.application\\services\\autoreplyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\shared\\forms\\automationform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\components\\shared\\forms\\automationform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -15,8 +11,20 @@
       "RelativeMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|solutionrelative:instagrambot.application\\services\\interfaces\\iautoreplyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|d:\\repos\\instagrambot\\instagrambot.core\\entities\\autoreplyrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|solutionrelative:instagrambot.core\\entities\\autoreplyrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|d:\\repos\\instagrambot\\instagrambot.application\\services\\autoreplyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18677B-1F38-4C6F-7ED0-DBABD60CC528}|InstagramBot.Application\\InstagramBot.Application.csproj|solutionrelative:instagrambot.application\\services\\autoreplyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{766B2730-EBF5-4ACD-BA1A-AEB60C352048}|InstagramBot.DTOs\\InstagramBot.DTOs.csproj|d:\\repos\\instagrambot\\instagrambot.dtos\\automationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{766B2730-EBF5-4ACD-BA1A-AEB60C352048}|InstagramBot.DTOs\\InstagramBot.DTOs.csproj|solutionrelative:instagrambot.dtos\\automationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|d:\\repos\\instagrambot\\instagrambot.core\\interfaces\\iautoreplyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|solutionrelative:instagrambot.core\\interfaces\\iautoreplyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{692B5A51-5A30-40DB-AB89-D3262F99C928}|InstagramBot.Infrastructure\\InstagramBot.Infrastructure.csproj|d:\\repos\\instagrambot\\instagrambot.infrastructure\\repositories\\autoreplyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{692B5A51-5A30-40DB-AB89-D3262F99C928}|InstagramBot.Infrastructure\\InstagramBot.Infrastructure.csproj|solutionrelative:instagrambot.infrastructure\\repositories\\autoreplyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\dashboard\\dashboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -62,19 +70,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 183,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IAutoReplyService.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
-              "RelativeToolTip": "InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "AutoReplyRepository.cs",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\AutoReplyRepository.cs",
+              "RelativeDocumentMoniker": "InstagramBot.Infrastructure\\Repositories\\AutoReplyRepository.cs",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\AutoReplyRepository.cs",
+              "RelativeToolTip": "InstagramBot.Infrastructure\\Repositories\\AutoReplyRepository.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T15:38:59.214Z",
+              "WhenOpened": "2025-12-30T19:30:41.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IAutoReplyRepository.cs",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Interfaces\\IAutoReplyRepository.cs",
+              "RelativeDocumentMoniker": "InstagramBot.Core\\Interfaces\\IAutoReplyRepository.cs",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Interfaces\\IAutoReplyRepository.cs",
+              "RelativeToolTip": "InstagramBot.Core\\Interfaces\\IAutoReplyRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T19:26:57.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AutomationDto.cs",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.DTOs\\AutomationDto.cs",
+              "RelativeDocumentMoniker": "InstagramBot.DTOs\\AutomationDto.cs",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.DTOs\\AutomationDto.cs",
+              "RelativeToolTip": "InstagramBot.DTOs\\AutomationDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T19:20:08.755Z",
               "EditorCaption": ""
             },
             {
@@ -107,45 +141,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "AutoReplyService.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\AutoReplyService.cs",
               "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\AutoReplyService.cs",
               "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\AutoReplyService.cs",
               "RelativeToolTip": "InstagramBot.Application\\Services\\AutoReplyService.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAswBQAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAtwI8AAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-30T15:30:12.947Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AutoReplyRule.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Entities\\AutoReplyRule.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Core\\Entities\\AutoReplyRule.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Entities\\AutoReplyRule.cs",
-              "RelativeToolTip": "InstagramBot.Core\\Entities\\AutoReplyRule.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAtAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IAutoReplyService.cs",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
+              "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
+              "RelativeToolTip": "InstagramBot.Application\\Services\\Interfaces\\IAutoReplyService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T15:29:54.751Z"
+              "WhenOpened": "2025-12-30T15:38:59.214Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "AutomationForm.razor",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Shared\\Forms\\AutomationForm.razor",
               "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Shared\\Forms\\AutomationForm.razor",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Shared\\Forms\\AutomationForm.razor",
-              "RelativeToolTip": "InstagramBot.Web\\Components\\Shared\\Forms\\AutomationForm.razor",
-              "ViewState": "AgIAACAAAAAAAAAAAAAiwDwAAAArAAAAAAAAAA==",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Shared\\Forms\\AutomationForm.razor*",
+              "RelativeToolTip": "InstagramBot.Web\\Components\\Shared\\Forms\\AutomationForm.razor*",
+              "ViewState": "AgIAADIAAAAAAAAAAAAAAFgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-30T15:26:12.085Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Dashboard.razor",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Dashboard\\Dashboard.razor",
               "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Pages\\Dashboard\\Dashboard.razor",
@@ -157,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "IReportingService.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\IReportingService.cs",
               "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\IReportingService.cs",
@@ -169,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "AnalyticsDto.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.DTOs\\AnalyticsDto.cs",
               "RelativeDocumentMoniker": "InstagramBot.DTOs\\AnalyticsDto.cs",
@@ -181,7 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ReportingService.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\ReportingService.cs",
               "RelativeDocumentMoniker": "InstagramBot.Infrastructure\\Repositories\\ReportingService.cs",
@@ -193,7 +228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "PostRepository.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\PostRepository.cs",
               "RelativeDocumentMoniker": "InstagramBot.Infrastructure\\Repositories\\PostRepository.cs",
@@ -205,7 +240,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "IPostRepository.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Interfaces\\IPostRepository.cs",
               "RelativeDocumentMoniker": "InstagramBot.Core\\Interfaces\\IPostRepository.cs",
@@ -217,7 +252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "PostService.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\PostService.cs",
               "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\PostService.cs",
@@ -229,7 +264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "IPostService.cs",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Application\\Services\\Interfaces\\IPostService.cs",
               "RelativeDocumentMoniker": "InstagramBot.Application\\Services\\Interfaces\\IPostService.cs",
@@ -241,7 +276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "AccountManagement.razor",
               "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
               "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
