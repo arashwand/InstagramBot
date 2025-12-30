@@ -105,5 +105,32 @@ namespace InstagramBot.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Post>> GetScheduledPostsAsync(int count)
+        {
+            return await _context.Posts
+                .Where(p => p.ScheduledDate > DateTime.UtcNow && p.Status == "Scheduled")
+                .Include(p => p.Account)
+                .OrderBy(p => p.ScheduledDate)
+                .Take(count)
+                .ToListAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+            if (post != null)
+            {
+                _context.Posts.Remove(post);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<Post>> GetAllAsync()
+        {
+            return await _context.Posts
+                .Include(p => p.Account)
+                .OrderByDescending(p => p.CreatedDate)
+                .ToListAsync();
+        }
     }
 }

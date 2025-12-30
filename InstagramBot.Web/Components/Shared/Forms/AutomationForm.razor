@@ -1,5 +1,72 @@
-﻿<h3>AutomationForm</h3>
+﻿@using InstagramBot.Application.Services.Interfaces
+﻿@using InstagramBot.DTOs
+@inject IAutoReplyService AutoReplyService
+@inject NavigationManager Navigation
+
+<h3>تنظیمات اتوماسیون پاسخ</h3>
+
+<EditForm Model="@automationRule" OnValidSubmit="SaveAutomationRule">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="keyword" class="form-label">کلمه کلیدی</label>
+        <InputText id="keyword" @bind-Value="automationRule.Keyword" class="form-control" placeholder="کلمه کلیدی برای پاسخ" />
+        <ValidationMessage For="@(() => automationRule.Keyword)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="response" class="form-label">پاسخ</label>
+        <InputTextArea id="response" @bind-Value="automationRule.Response" class="form-control" rows="3" placeholder="پاسخ خودکار" />
+        <ValidationMessage For="@(() => automationRule.Response)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="isActive" class="form-label">فعال</label>
+        <InputCheckbox id="isActive" @bind-Value="automationRule.IsActive" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">ذخیره</button>
+    <button type="button" class="btn btn-secondary ms-2" @onclick="Cancel">لغو</button>
+</EditForm>
+
+@if (automationRules.Any())
+{
+    <h4 class="mt-4">قوانین موجود</h4>
+    <ul class="list-group">
+        @foreach (var rule in automationRules)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @rule.Keyword - @rule.Response
+                <span class="badge @(rule.IsActive ? "bg-success" : "bg-secondary")">@(rule.IsActive ? "فعال" : "غیرفعال")</span>
+            </li>
+        }
+    </ul>
+}
 
 @code {
+    private AutomationRuleDto automationRule = new();
+    private List<AutomationRuleDto> automationRules = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAutomationRules();
+    }
+
+    private async Task LoadAutomationRules()
+    {
+        automationRules = await AutoReplyService.GetAllRulesAsync();
+    }
+
+    private async Task SaveAutomationRule()
+    {
+        await AutoReplyService.CreateRuleAsync(automationRule);
+        automationRule = new(); // ریست فرم
+        await LoadAutomationRules();
+    }
+
+    private void Cancel()
+    {
+        automationRule = new();
+    }
 }

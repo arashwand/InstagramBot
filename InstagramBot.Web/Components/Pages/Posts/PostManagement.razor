@@ -1,0 +1,122 @@
+﻿@page "/posts"
+@using InstagramBot.DTOs
+@using InstagramBot.Application.Services.Interfaces
+@inject IPostService PostService
+@inject NavigationManager Navigation
+
+<PageTitle>مدیریت پست‌ها</PageTitle>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>مدیریت پست‌ها</h1>
+        <button class="btn btn-primary" @onclick="CreateNewPost">
+            <i class="fas fa-plus me-1"></i>
+            پست جدید
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>پست‌های موجود</h5>
+        </div>
+        <div class="card-body">
+            @if (posts.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>پست</th>
+                                <th>اکانت</th>
+                                <th>وضعیت</th>
+                                <th>تاریخ انتشار</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var post in posts)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="post-caption">@(post.Caption.Length > 50 ? post.Caption.Substring(0, 50) + "..." : post.Caption)</div>
+                                    </td>
+                                    <td>@post.AccountId</td>
+                                    <td>
+                                        <span class="badge @GetStatusBadgeClass(post.Status)">
+                                            @GetStatusText(post.Status)
+                                        </span>
+                                    </td>
+                                    <td>@(post.PublishedAt?.ToString("yyyy/MM/dd HH:mm") ?? "زمان‌بندی نشده")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="() => EditPost(post.Id)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger ms-1" @onclick="() => DeletePost(post.Id)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted py-4">
+                    <i class="fas fa-images fa-2x mb-2"></i>
+                    <div>هیچ پستی وجود ندارد</div>
+                    <a href="/posts/create" class="btn btn-primary btn-sm mt-2">
+                        ایجاد پست جدید
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<PostDto> posts = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPosts();
+    }
+
+    private async Task LoadPosts()
+    {
+        posts = await PostService.GetAllPostsAsync();
+    }
+
+    private void CreateNewPost()
+    {
+        Navigation.NavigateTo("/posts/create");
+    }
+
+    private async Task EditPost(int postId)
+    {
+        Navigation.NavigateTo($"/posts/edit/{postId}");
+    }
+
+    private async Task DeletePost(int postId)
+    {
+        await PostService.DeletePostAsync(postId);
+        await LoadPosts();
+    }
+
+    private string GetStatusBadgeClass(string status) => status switch
+    {
+        "Scheduled" => "bg-warning",
+        "Published" => "bg-success",
+        "Failed" => "bg-danger",
+        _ => "bg-secondary"
+    };
+
+    private string GetStatusText(string status) => status switch
+    {
+        "Scheduled" => "زمان‌بندی شده",
+        "Published" => "منتشر شده",
+        "Failed" => "ناموفق",
+        _ => "نامشخص"
+    };
+}

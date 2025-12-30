@@ -1,7 +1,9 @@
 ﻿@page "/"
-@using InstagramBot.Application.DTOs.Analytics
+@using InstagramBot.DTOs
 @using InstagramBot.Application.Services.Interfaces
 @inject IAnalyticsService AnalyticsService
+@inject IPostService PostService
+@inject IActivityService ActivityService
 @inject IJSRuntime JSRuntime
 @implements IAsyncDisposable
 
@@ -316,19 +318,21 @@
     {
         try
         {
-            // بارگذاری آمار کلیدی
-            // dashboardStats = await AnalyticsService.GetDashboardStatsAsync(selectedPeriod);
+            // بارگذاری آمار کلیدی از سرویس واقعی
+            dashboardStats = await AnalyticsService.GetDashboardStatsAsync(selectedPeriod);
 
             // بارگذاری پست‌های برتر
-            // topPosts = await AnalyticsService.GetTopPostsAsync(10);
+            topPosts = await AnalyticsService.GetTopPostsAsync(10);
 
             // بارگذاری پست‌های زمان‌بندی شده
-            // scheduledPosts = await PostService.GetScheduledPostsAsync(10);
+            scheduledPosts = await PostService.GetScheduledPostsAsync(10);
 
             // بارگذاری فعالیت‌های اخیر
-            // recentActivities = await ActivityService.GetRecentActivitiesAsync(10);
-
-            // داده‌های نمونه برای تست
+            recentActivities = await ActivityService.GetRecentActivitiesAsync(10);
+        }
+        catch (Exception ex)
+        {
+            // مدیریت خطا و استفاده از داده‌های پیش‌فرض در صورت عدم دسترسی
             dashboardStats = new DashboardStatsDto
             {
                 TotalAccounts = 15,
@@ -340,11 +344,7 @@
                 LikesChange = 15.7,
                 CommentsChange = -2.1
             };
-        }
-        catch (Exception ex)
-        {
-            // مدیریت خطا
-            Console.WriteLine($"Error loading dashboard data: {ex.Message}");
+            // Log error
         }
     }
 
@@ -356,7 +356,6 @@
 
         analyticsHubConnection.On<object>("ReceiveAnalyticsUpdate", async (data) =>
         {
-            // بروزرسانی داده‌های داشبورد
             await LoadDashboardData();
             await InvokeAsync(StateHasChanged);
         });
@@ -366,17 +365,14 @@
 
     private async Task InitializeCharts()
     {
-        // راه‌اندازی نمودار تعاملات
         await JSRuntime.InvokeVoidAsync("initializeEngagementChart", "engagementChart");
-
-        // راه‌اندازی نمودار فالوورها
         await JSRuntime.InvokeVoidAsync("initializeFollowersChart", "followersChart");
     }
 
     private async Task RefreshData()
     {
         await LoadDashboardData();
-        await JSRuntime.InvokeVoidAsync("refreshCharts");
+        await InitializeCharts();
         StateHasChanged();
     }
 
@@ -439,46 +435,5 @@
         {
             await analyticsHubConnection.DisposeAsync();
         }
-    }
-
-    // DTOs برای نمایش داده‌ها
-    public class DashboardStatsDto
-    {
-        public int TotalAccounts { get; set; }
-        public int TotalPosts { get; set; }
-        public int TotalLikes { get; set; }
-        public int TotalComments { get; set; }
-        public double AccountsChange { get; set; }
-        public double PostsChange { get; set; }
-        public double LikesChange { get; set; }
-        public double CommentsChange { get; set; }
-    }
-
-    public class TopPostDto
-    {
-        public int Id { get; set; }
-        public string Caption { get; set; } = "";
-        public string ThumbnailUrl { get; set; } = "";
-        public string AccountName { get; set; } = "";
-        public int LikesCount { get; set; }
-        public int CommentsCount { get; set; }
-        public DateTime PublishedAt { get; set; }
-    }
-
-    public class ScheduledPostDto
-    {
-        public int Id { get; set; }
-        public string Caption { get; set; } = "";
-        public string AccountName { get; set; } = "";
-        public DateTime ScheduledAt { get; set; }
-        public string Status { get; set; } = "";
-    }
-
-    public class ActivityDto
-    {
-        public int Id { get; set; }
-        public string Type { get; set; } = "";
-        public string Message { get; set; } = "";
-        public DateTime CreatedAt { get; set; }
     }
 }

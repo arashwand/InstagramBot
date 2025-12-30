@@ -1,0 +1,157 @@
+﻿@page "/accounts"
+@using InstagramBot.DTOs
+@using InstagramBot.Application.Services.Interfaces
+@inject IAccountService AccountService
+@inject NavigationManager Navigation
+
+<PageTitle>مدیریت حساب‌ها</PageTitle>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>مدیریت حساب‌های اینستاگرام</h1>
+        <button class="btn btn-primary" @onclick="ShowCreateForm">
+            <i class="fas fa-plus me-1"></i>
+            افزودن حساب جدید
+        </button>
+    </div>
+
+    @if (showCreateForm)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>افزودن حساب جدید</h5>
+            </div>
+            <div class="card-body">
+                <EditForm Model="@newAccount" OnValidSubmit="CreateAccount">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">نام کاربری اینستاگرام</label>
+                        <InputText id="username" @bind-Value="newAccount.InstagramUsername" class="form-control" placeholder="@username" />
+                        <ValidationMessage For="@(() => newAccount.InstagramUsername)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="accessToken" class="form-label">توکن دسترسی</label>
+                        <InputText id="accessToken" @bind-Value="newAccount.AccessToken" class="form-control" type="password" />
+                        <ValidationMessage For="@(() => newAccount.AccessToken)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pageAccessToken" class="form-label">توکن دسترسی صفحه</label>
+                        <InputText id="pageAccessToken" @bind-Value="newAccount.PageAccessToken" class="form-control" type="password" />
+                        <ValidationMessage For="@(() => newAccount.PageAccessToken)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="expiresIn" class="form-label">زمان انقضا (ثانیه)</label>
+                        <InputNumber id="expiresIn" @bind-Value="newAccount.ExpiresIn" class="form-control" />
+                        <ValidationMessage For="@(() => newAccount.ExpiresIn)" />
+                    </div>
+
+                    <button type="submit" class="btn btn-success">ذخیره</button>
+                    <button type="button" class="btn btn-secondary ms-2" @onclick="CancelCreate">لغو</button>
+                </EditForm>
+            </div>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header">
+            <h5>حساب‌های موجود</h5>
+        </div>
+        <div class="card-body">
+            @if (accounts.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>نام کاربری</th>
+                                <th>وضعیت</th>
+                                <th>آخرین بروزرسانی</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var account in accounts)
+                            {
+                                <tr>
+                                    <td>@account.InstagramUsername</td>
+                                    <td>
+                                        <span class="badge @(account.IsActive ? "bg-success" : "bg-danger")">
+                                            @(account.IsActive ? "فعال" : "غیرفعال")
+                                        </span>
+                                    </td>
+                                    <td>@account.LastRefreshed.ToString("yyyy/MM/dd HH:mm")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="() => EditAccount(account.Id)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger ms-1" @onclick="() => DeleteAccount(account.Id)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted py-4">
+                    <i class="fas fa-users fa-2x mb-2"></i>
+                    <div>هیچ حسابی اضافه نشده است</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<AccountDto> accounts = new();
+    private bool showCreateForm = false;
+    private CreateAccountDto newAccount = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAccounts();
+    }
+
+    private async Task LoadAccounts()
+    {
+        accounts = await AccountService.GetAllAccountsAsync();
+    }
+
+    private void ShowCreateForm()
+    {
+        showCreateForm = true;
+        newAccount = new CreateAccountDto();
+    }
+
+    private async Task CreateAccount()
+    {
+        await AccountService.CreateAccountAsync(newAccount);
+        showCreateForm = false;
+        await LoadAccounts();
+    }
+
+    private void CancelCreate()
+    {
+        showCreateForm = false;
+    }
+
+    private async Task EditAccount(int accountId)
+    {
+        // Navigate to edit page or show modal
+        Navigation.NavigateTo($"/accounts/edit/{accountId}");
+    }
+
+    private async Task DeleteAccount(int accountId)
+    {
+        await AccountService.DeleteAccountAsync(accountId);
+        await LoadAccounts();
+    }
+}

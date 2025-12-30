@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -27,6 +28,7 @@ namespace InstagramBot.Core.Entities
         public DbSet<AccountAnalytics> AccountAnalytics { get; set; }
         public DbSet<PostAnalytics> PostAnalytics { get; set; }
         public DbSet<AnalyticsSnapshot> AnalyticsSnapshots { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
 
 

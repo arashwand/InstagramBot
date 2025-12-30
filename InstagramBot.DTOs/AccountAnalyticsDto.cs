@@ -55,20 +55,5 @@ namespace InstagramBot.DTOs
         public int WebsiteClicks { get; set; }
     }
 
-    public class AnalyticsReportDto
-    {
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-        public int TotalPosts { get; set; }
-        public int TotalStories { get; set; }
-        public long TotalImpressions { get; set; }
-        public long TotalReach { get; set; }
-        public long TotalLikes { get; set; }
-        public long TotalComments { get; set; }
-        public double AverageEngagementRate { get; set; }
-        public int FollowersGrowth { get; set; }
-        public List<PostAnalyticsDto> TopPosts { get; set; }
-        public Dictionary<string, int> PostsByDay { get; set; }
-        public Dictionary<string, double> EngagementByHour { get; set; }
-    }
+    
 }

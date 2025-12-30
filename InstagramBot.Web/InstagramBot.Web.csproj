@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Dashboard-html.cshtml" />
+    <Content Remove="Pages\Dashboard.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Pages\Dashboard-html.cshtml" />
+    <Compile Include="Pages\Dashboard.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

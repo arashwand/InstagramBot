@@ -3,32 +3,16 @@
   "WorkspaceRootPath": "D:\\repos\\InstagramBot\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}|InstagramBot.Api\\InstagramBot.Api.csproj|d:\\repos\\instagrambot\\instagrambot.api\\controllers\\twofactorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}|InstagramBot.Api\\InstagramBot.Api.csproj|solutionrelative:instagrambot.api\\controllers\\twofactorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\posts\\postmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\components\\pages\\posts\\postmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|d:\\repos\\instagrambot\\instagrambot.core\\interfaces\\ipostrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|solutionrelative:instagrambot.core\\interfaces\\ipostrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\accounts\\accountmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\components\\pages\\accounts\\accountmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{692B5A51-5A30-40DB-AB89-D3262F99C928}|InstagramBot.Infrastructure\\InstagramBot.Infrastructure.csproj|d:\\repos\\instagrambot\\instagrambot.infrastructure\\repositories\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{692B5A51-5A30-40DB-AB89-D3262F99C928}|InstagramBot.Infrastructure\\InstagramBot.Infrastructure.csproj|solutionrelative:instagrambot.infrastructure\\repositories\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}|InstagramBot.Api\\InstagramBot.Api.csproj|d:\\repos\\instagrambot\\instagrambot.api\\controllers\\instagramaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}|InstagramBot.Api\\InstagramBot.Api.csproj|solutionrelative:instagrambot.api\\controllers\\instagramaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}|InstagramBot.Api\\InstagramBot.Api.csproj|d:\\repos\\instagrambot\\instagrambot.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{214CA7BD-79E1-4A56-AE09-2D414D76A0F4}|InstagramBot.Api\\InstagramBot.Api.csproj|solutionrelative:instagrambot.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{692B5A51-5A30-40DB-AB89-D3262F99C928}|InstagramBot.Infrastructure\\InstagramBot.Infrastructure.csproj|d:\\repos\\instagrambot\\instagrambot.infrastructure\\repositories\\ireportingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{692B5A51-5A30-40DB-AB89-D3262F99C928}|InstagramBot.Infrastructure\\InstagramBot.Infrastructure.csproj|solutionrelative:instagrambot.infrastructure\\repositories\\ireportingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|d:\\repos\\instagrambot\\instagrambot.core\\entities\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{349F6679-A3F4-4E2A-9EDA-48EDF2210FD5}|InstagramBot.Core\\InstagramBot.Core.csproj|solutionrelative:instagrambot.core\\entities\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|d:\\repos\\instagrambot\\instagrambot.web\\components\\pages\\dashboard\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8FD15BE6-8F58-48D3-B73F-E29B2D604DFD}|InstagramBot.Web\\InstagramBot.Web.csproj|solutionrelative:instagrambot.web\\components\\pages\\dashboard\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,66 +27,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TwoFactorController.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Api\\Controllers\\TwoFactorController.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Api\\Controllers\\TwoFactorController.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Api\\Controllers\\TwoFactorController.cs",
-              "RelativeToolTip": "InstagramBot.Api\\Controllers\\TwoFactorController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T22:23:33.528Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "InstagramAccountController.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Api\\Controllers\\InstagramAccountController.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Api\\Controllers\\InstagramAccountController.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Api\\Controllers\\InstagramAccountController.cs",
-              "RelativeToolTip": "InstagramBot.Api\\Controllers\\InstagramAccountController.cs",
+              "Title": "PostManagement.razor",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
+              "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
+              "RelativeToolTip": "InstagramBot.Web\\Components\\Pages\\Posts\\PostManagement.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T22:23:19.663Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Api\\Controllers\\AuthController.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "InstagramBot.Api\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T22:23:07.664Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Post.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Entities\\Post.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Core\\Entities\\Post.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Entities\\Post.cs",
-              "RelativeToolTip": "InstagramBot.Core\\Entities\\Post.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAcwBwAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T22:22:03.366Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-29T23:40:31.258Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "IPostRepository.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Interfaces\\IPostRepository.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Core\\Interfaces\\IPostRepository.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Core\\Interfaces\\IPostRepository.cs",
-              "RelativeToolTip": "InstagramBot.Core\\Interfaces\\IPostRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBMAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T22:20:47.671Z",
+              "Title": "AccountManagement.razor",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
+              "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
+              "RelativeToolTip": "InstagramBot.Web\\Components\\Pages\\Accounts\\AccountManagement.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-29T23:38:37.555Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.razor",
+              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Dashboard\\Index.razor",
+              "RelativeDocumentMoniker": "InstagramBot.Web\\Components\\Pages\\Dashboard\\Index.razor",
+              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Web\\Components\\Pages\\Dashboard\\Index.razor",
+              "RelativeToolTip": "InstagramBot.Web\\Components\\Pages\\Dashboard\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALYBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-29T23:32:19.767Z",
               "EditorCaption": ""
             },
             {
@@ -132,32 +90,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PostRepository.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\PostRepository.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Infrastructure\\Repositories\\PostRepository.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\PostRepository.cs",
-              "RelativeToolTip": "InstagramBot.Infrastructure\\Repositories\\PostRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T22:20:21.011Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IReportingService.cs",
-              "DocumentMoniker": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\IReportingService.cs",
-              "RelativeDocumentMoniker": "InstagramBot.Infrastructure\\Repositories\\IReportingService.cs",
-              "ToolTip": "D:\\repos\\InstagramBot\\InstagramBot.Infrastructure\\Repositories\\IReportingService.cs",
-              "RelativeToolTip": "InstagramBot.Infrastructure\\Repositories\\IReportingService.cs",
-              "ViewState": "AgIAAOYAAAAAAAAAAAAowP8AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T22:20:02.225Z",
-              "EditorCaption": ""
             }
           ]
         }
