@@ -1,6 +1,7 @@
 ﻿using InstagramBot.Application.Services.Interfaces;
 using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
+using InstagramBot.DTOs;
 using Microsoft.Extensions.Logging;
 using MatchType = InstagramBot.Core.Entities.MatchType;
 
@@ -138,6 +139,46 @@ namespace InstagramBot.Application.Services
             {
                 _logger.LogError(ex, "Error applying auto reply rule {RuleId} to interaction {InteractionId}", rule.Id, interaction.Id);
             }
+        }
+
+        public async Task<List<AutomationRuleDto>> GetAllRulesAsync(int userId)
+        {
+            var rules = await _autoReplyRepository.GetByUserIdAsync(userId);
+            return rules.Select(rule => new AutomationRuleDto
+            {
+                Id = rule.Id,
+                AccountId = rule.AccountId,
+                Name = rule.Name,
+                IsActive = rule.IsActive,
+                MatchType = (DTOs.MatchType)(int)rule.MatchType,  // مطمئن شوید DTO.MatchType وجود دارد
+                Keywords = rule.Keywords ?? new List<string>(),
+                ReplyMessage = rule.ReplyMessage,
+                Priority = rule.Priority,
+                MaxRepliesPerHour = rule.MaxRepliesPerHour,
+                DelayMinutes = rule.DelayMinutes
+            }).ToList();
+        }
+
+        public async Task CreateRuleAsync(AutomationRuleDto ruleDto, int userId)
+        {
+            var rule = new AutoReplyRule
+            {
+                // Id نیازی به set ندارد، auto-generated
+                AccountId = ruleDto.AccountId,
+                UserId = userId,  // اضافه شده: از پارامتر
+                Name = ruleDto.Name,
+                IsActive = ruleDto.IsActive,
+                MatchType = (MatchType)ruleDto.MatchType,
+                Keywords = ruleDto.Keywords ?? new List<string>(),
+                ReplyMessage = ruleDto.ReplyMessage,
+                Priority = ruleDto.Priority,
+                MaxRepliesPerHour = ruleDto.MaxRepliesPerHour,
+                DelayMinutes = ruleDto.DelayMinutes,
+                CreatedDate = DateTime.UtcNow,  // اضافه شده
+                UpdatedDate = DateTime.UtcNow   // اضافه شده
+            };
+
+            await _autoReplyRepository.CreateAsync(rule);
         }
     }
 }

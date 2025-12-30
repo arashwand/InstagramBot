@@ -57,5 +57,19 @@ namespace InstagramBot.Infrastructure.Repositories
                 .Where(r => r.AccountId == accountId && r.IsActive)
                 .ToListAsync();
         }
+
+        public async Task<List<AutoReplyRule>> GetByUserIdAsync(int userId)
+        {
+            return await _context.AutoReplyRules
+                .Where(r => r.UserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<List<AutoReplyRule>> GetActiveByUserIdAsync(int userId)
+        {
+            return await _context.AutoReplyRules
+                .Where(r => r.UserId == userId && r.IsActive)
+                .ToListAsync();
+        }
     }
 }

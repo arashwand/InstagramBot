@@ -1,13 +1,20 @@
 ﻿@using InstagramBot.Application.Services.Interfaces
-﻿@using InstagramBot.DTOs
+@using InstagramBot.DTOs
 @inject IAutoReplyService AutoReplyService
 @inject NavigationManager Navigation
+@inject Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider AuthState
 
 <h3>تنظیمات اتوماسیون پاسخ</h3>
 
 <EditForm Model="@automationRule" OnValidSubmit="SaveAutomationRule">
     <DataAnnotationsValidator />
     <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="accountId" class="form-label">شناسه حساب</label>
+        <InputNumber id="accountId" @bind-Value="automationRule.AccountId" class="form-control" placeholder="شناسه حساب" />
+        <ValidationMessage For="@(() => automationRule.AccountId)" />
+    </div>
 
     <div class="mb-3">
         <label for="keyword" class="form-label">کلمه کلیدی</label>
@@ -47,20 +54,33 @@
 @code {
     private AutomationRuleDto automationRule = new();
     private List<AutomationRuleDto> automationRules = new();
+    private int currentUserId;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadAutomationRules();
+        var authState = await AuthState.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var userIdClaim = user.FindFirst("sub")?.Value ?? user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (int.TryParse(userIdClaim, out int userId))
+        {
+            currentUserId = userId;
+            await LoadAutomationRules();
+        }
+        else
+        {
+            // مدیریت خطا: کاربر لاگین نیست
+            Navigation.NavigateTo("/login");
+        }
     }
 
     private async Task LoadAutomationRules()
     {
-        automationRules = await AutoReplyService.GetAllRulesAsync();
+        automationRules = await AutoReplyService.GetAllRulesAsync(currentUserId);
     }
 
     private async Task SaveAutomationRule()
     {
-        await AutoReplyService.CreateRuleAsync(automationRule);
+        await AutoReplyService.CreateRuleAsync(automationRule, currentUserId);
         automationRule = new(); // ریست فرم
         await LoadAutomationRules();
     }
