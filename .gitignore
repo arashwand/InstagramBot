@@ -5,7 +5,5 @@
 /InstagramBot.Core/obj
 /InstagramBot.Application/obj
 /InstagramBot.Api/bin
+/.vs
 
-/.vs
-/.vs/InstagramBot
-/.vs
