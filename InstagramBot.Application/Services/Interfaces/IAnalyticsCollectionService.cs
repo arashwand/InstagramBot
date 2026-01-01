@@ -9,12 +9,12 @@ namespace InstagramBot.Application.Services.Interfaces
 {
     public interface IAnalyticsCollectionService
     {
-        Task CollectAccountAnalyticsAsync(int accountId);
-        Task CollectPostAnalyticsAsync(int postId);
-        Task CollectAllAccountsAnalyticsAsync();
+        Task CollectAccountAnalyticsAsync(int userId, int accountId);
+        Task CollectPostAnalyticsAsync(int userId, int postId);
+        Task CollectAllAccountsAnalyticsAsync(int userId);
         Task ProcessPendingAnalyticsAsync();
-        Task<AccountAnalyticsDto> GetLatestAccountAnalyticsAsync(int accountId);
-        Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int accountId, DateTime fromDate, DateTime toDate);
-        Task ScheduleAnalyticsCollectionAsync();
+        Task<AccountAnalyticsDto> GetLatestAccountAnalyticsAsync(int userId, int accountId);
+        Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate);
+        Task ScheduleAnalyticsCollectionAsync(int userId);
     }
 }

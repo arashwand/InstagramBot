@@ -11,8 +11,8 @@ namespace InstagramBot.Core.Interfaces
     {
         Task<AccountAnalytics> CreateAsync(AccountAnalytics analytics);
         Task<AccountAnalytics> UpdateAsync(AccountAnalytics analytics);
-        Task<AccountAnalytics> GetByAccountAndDateAsync(int accountId, DateTime date);
-        Task<List<AccountAnalytics>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate);
-        Task<AccountAnalytics> GetLatestByAccountIdAsync(int accountId);
+        Task<AccountAnalytics> GetByAccountAndDateAsync(int userId, int accountId, DateTime date);
+        Task<List<AccountAnalytics>> GetByUserIdAndDateRangeAsync(int userId, int accountId, DateTime fromDate, DateTime toDate);
+        Task<AccountAnalytics> GetLatestByAccountIdAsync(int userId, int accountId);
     }
 }

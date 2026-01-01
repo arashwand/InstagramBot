@@ -6,7 +6,7 @@ namespace InstagramBot.Application.Services.Interfaces
 {
     public interface IAnalyticsService
     {
-        Task<DashboardStatsDto> GetDashboardStatsAsync(string period);
-        Task<List<TopPostDto>> GetTopPostsAsync(int count);
+        Task<DashboardStatsDto> GetDashboardStatsAsync(int userId, string period);
+        Task<List<TopPostDto>> GetTopPostsAsync(int userId, int count);
     }
 }

@@ -9,7 +9,7 @@ namespace InstagramBot.Core.Interfaces
 {
     public interface IAccountRepository
     {
-        Task<Account> GetByIdAsync(int id);
+        Task<Account> GetByIdAsync(int accountId, int userId);
         Task<Account> CreateAsync(Account account);
         Task<Account> UpdateAsync(Account account);
         Task<bool> DeleteAsync(int id);

@@ -33,39 +33,39 @@ namespace InstagramBot.Infrastructure.Repositories
             return post;
         }
 
-        public async Task<Post> GetByIdAsync(int postId)
+        public async Task<Post> GetByIdAsync(int userId, int postId)
         {
-            return await _context.Posts.FindAsync(postId);
+            return await _context.Posts.FirstOrDefaultAsync(f=>f.Id == postId && f.Account.UserId == userId);
         }
 
-        public async Task<Post> GetByInstagramMediaIdAsync(string instagramMediaId)
+        public async Task<Post> GetByInstagramMediaIdAsync(int userId, string instagramMediaId)
         {
             return await _context.Posts
-                .FirstOrDefaultAsync(p => p.InstagramMediaId == instagramMediaId);
+                .FirstOrDefaultAsync(p => p.InstagramMediaId == instagramMediaId && p.Account.UserId == userId);
         }
 
-        public async Task<List<Post>> GetByAccountIdAsync(int accountId)
+        public async Task<List<Post>> GetByAccountIdAsync(int userId, int accountId)
         {
             return await _context.Posts
-                .Where(p => p.AccountId == accountId)
+                .Where(p => p.AccountId == accountId && p.Account.UserId == userId)
                 .ToListAsync();
         }
 
-        public async Task<List<Post>> GetRecentPublishedPostsAsync(int accountId, int days)
+        public async Task<List<Post>> GetRecentPublishedPostsAsync(int userId, int accountId, int days)
         {
             var sinceDate = DateTime.UtcNow.AddDays(-days);
             return await _context.Posts
-                .Where(p => p.AccountId == accountId &&
+                .Where(p => p.Account.UserId == userId && p.AccountId == accountId &&
                            p.PublishedDate.HasValue &&
                            p.PublishedDate >= sinceDate)
                 .OrderByDescending(p => p.PublishedDate)
                 .ToListAsync();
         }
 
-        public async Task<List<Post>> GetPublishedPostsAsync(int accountId)
+        public async Task<List<Post>> GetPublishedPostsAsync(int userId, int accountId)
         {
             return await _context.Posts
-                .Where(p => p.AccountId == accountId && p.PublishedDate.HasValue)
+                .Where(p => p.Account.UserId == userId && p.AccountId == accountId && p.PublishedDate.HasValue)
                 .OrderByDescending(p => p.PublishedDate)
                 .ToListAsync();
         }
@@ -86,10 +86,10 @@ namespace InstagramBot.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Post>> GetByAccountAndDateRangeAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<List<Post>> GetByAccountAndDateRangeAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
             return await _context.Posts
-                .Where(p => p.AccountId == accountId &&
+                .Where(p => p.Account.UserId == userId && p.AccountId == accountId &&
                             p.PublishedDate.HasValue &&
                             p.PublishedDate >= fromDate &&
                             p.PublishedDate <= toDate)
@@ -105,19 +105,19 @@ namespace InstagramBot.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Post>> GetScheduledPostsAsync(int count)
+        public async Task<List<Post>> GetScheduledPostsAsync(int userId, int count)
         {
             return await _context.Posts
-                .Where(p => p.ScheduledDate > DateTime.UtcNow && p.Status == "Scheduled")
+                .Where(p => p.Account.UserId == userId && p.ScheduledDate > DateTime.UtcNow && p.Status == "Scheduled")
                 .Include(p => p.Account)
                 .OrderBy(p => p.ScheduledDate)
                 .Take(count)
                 .ToListAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int userId, int id)
         {
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.Account.UserId == userId);
             if (post != null)
             {
                 _context.Posts.Remove(post);
@@ -125,9 +125,10 @@ namespace InstagramBot.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<Post>> GetAllAsync()
+        public async Task<List<Post>> GetAllAsync(int userId)
         {
             return await _context.Posts
+                .Where(p => p.Account.UserId == userId)
                 .Include(p => p.Account)
                 .OrderByDescending(p => p.CreatedDate)
                 .ToListAsync();

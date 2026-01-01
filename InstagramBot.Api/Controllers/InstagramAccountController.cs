@@ -1,4 +1,5 @@
 ﻿using InstagramBot.Application.Services.Interfaces;
+using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
 using InstagramBot.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -80,7 +81,7 @@ namespace InstagramBot.Api.Controllers
             try
             {
                 // بررسی مالکیت حساب
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -103,7 +104,7 @@ namespace InstagramBot.Api.Controllers
             try
             {
                 // بررسی مالکیت حساب
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");
@@ -129,7 +130,7 @@ namespace InstagramBot.Api.Controllers
 
             try
             {
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || account.UserId != userId)
                 {
                     return NotFound("حساب یافت نشد.");

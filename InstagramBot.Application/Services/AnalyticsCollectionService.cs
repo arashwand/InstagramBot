@@ -39,13 +39,13 @@ namespace InstagramBot.Application.Services
             _logger = logger;
         }
 
-        public async Task CollectAccountAnalyticsAsync(int accountId)
+        public async Task CollectAccountAnalyticsAsync(int userId, int accountId)
         {
             try
             {
-                _logger.LogInformation("Collecting analytics for account {AccountId}", accountId);
+                _logger.LogInformation("Collecting analytics for userId {UserId} account {AccountId}", userId, accountId);
 
-                var account = await _accountRepository.GetByIdAsync(accountId);
+                var account = await _accountRepository.GetByIdAsync(userId, accountId);
                 if (account == null || !account.IsActive)
                 {
                     _logger.LogWarning("Account {AccountId} not found or inactive", accountId);
@@ -74,7 +74,7 @@ namespace InstagramBot.Application.Services
                 await _snapshotRepository.CreateAsync(snapshot);
 
                 // پردازش و ذخیره آمار
-                await ProcessAccountInsightsAsync(account, accountInfo, insights);
+                await ProcessAccountInsightsAsync(userId, account, accountInfo, insights);
 
                 await _logService.LogUserActivityAsync(account.UserId, "AnalyticsCollected",
                     $"Analytics collected for account {account.InstagramUsername}");
@@ -88,7 +88,7 @@ namespace InstagramBot.Application.Services
             }
         }
 
-        private async Task ProcessAccountInsightsAsync(Account account, Dictionary<string, object> accountInfo, List<InstagramInsightsDto> insights)
+        private async Task ProcessAccountInsightsAsync(int userId,Account account, Dictionary<string, object> accountInfo, List<InstagramInsightsDto> insights)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace InstagramBot.Application.Services
                 }
 
                 // بررسی وجود آمار برای امروز
-                var existingAnalytics = await _accountAnalyticsRepository.GetByAccountAndDateAsync(account.Id, DateTime.UtcNow.Date);
+                var existingAnalytics = await _accountAnalyticsRepository.GetByAccountAndDateAsync(userId, account.Id, DateTime.UtcNow.Date);
                 if (existingAnalytics != null)
                 {
                     // به‌روزرسانی آمار موجود
@@ -166,20 +166,20 @@ namespace InstagramBot.Application.Services
             }
         }
 
-        public async Task CollectPostAnalyticsAsync(int postId)
+        public async Task CollectPostAnalyticsAsync(int userId, int postId)
         {
             try
             {
                 _logger.LogInformation("Collecting analytics for post {PostId}", postId);
 
-                var post = await _postRepository.GetByIdAsync(postId);
+                var post = await _postRepository.GetByIdAsync(userId, postId);
                 if (post == null || string.IsNullOrEmpty(post.InstagramMediaId))
                 {
                     _logger.LogWarning("Post {PostId} not found or not published", postId);
                     return;
                 }
 
-                var account = await _accountRepository.GetByIdAsync(post.AccountId);
+                var account = await _accountRepository.GetByIdAsync(userId, post.AccountId);
                 if (account == null || !account.IsActive)
                 {
                     _logger.LogWarning("Account for post {PostId} not found or inactive", postId);
@@ -295,7 +295,7 @@ namespace InstagramBot.Application.Services
             }
         }
 
-        public async Task CollectAllAccountsAnalyticsAsync()
+        public async Task CollectAllAccountsAnalyticsAsync(int userId)
         {
             try
             {
@@ -307,14 +307,14 @@ namespace InstagramBot.Application.Services
                 {
                     try
                     {
-                        await CollectAccountAnalyticsAsync(account.Id);
+                        await CollectAccountAnalyticsAsync(userId, account.Id);
 
                         // جمع‌آوری آمار پست‌های اخیر
-                        var recentPosts = await _postRepository.GetRecentPublishedPostsAsync(account.Id, 30); // 30 روز گذشته
+                        var recentPosts = await _postRepository.GetRecentPublishedPostsAsync(userId, account.Id, 30); // 30 روز گذشته
 
                         foreach (var post in recentPosts)
                         {
-                            await CollectPostAnalyticsAsync(post.Id);
+                            await CollectPostAnalyticsAsync(userId, post.Id);
                             await Task.Delay(2000); // تاخیر برای جلوگیری از rate limiting
                         }
 
@@ -371,9 +371,9 @@ namespace InstagramBot.Application.Services
             }
         }
 
-        public async Task<AccountAnalyticsDto> GetLatestAccountAnalyticsAsync(int accountId)
+        public async Task<AccountAnalyticsDto> GetLatestAccountAnalyticsAsync(int userId, int accountId)
         {
-            var analytics = await _accountAnalyticsRepository.GetLatestByAccountIdAsync(accountId);
+            var analytics = await _accountAnalyticsRepository.GetLatestByAccountIdAsync(userId, accountId);
             if (analytics == null) return null;
 
             return new AccountAnalyticsDto
@@ -392,9 +392,9 @@ namespace InstagramBot.Application.Services
             };
         }
 
-        public async Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int accountId, DateTime fromDate, DateTime toDate)
+        public async Task<List<PostAnalyticsDto>> GetPostAnalyticsAsync(int userId, int accountId, DateTime fromDate, DateTime toDate)
         {
-            var analyticsData = await _postAnalyticsRepository.GetByAccountAndDateRangeAsync(accountId, fromDate, toDate);
+            var analyticsData = await _postAnalyticsRepository.GetByUserIdAndDateRangeAsync(userId, fromDate, toDate);
 
             return analyticsData.Select(a => new PostAnalyticsDto
             {
@@ -416,12 +416,12 @@ namespace InstagramBot.Application.Services
             }).ToList();
         }
 
-        public async Task ScheduleAnalyticsCollectionAsync()
+        public async Task ScheduleAnalyticsCollectionAsync(int userId)
         {
             // زمان‌بندی جمع‌آوری روزانه آمار در ساعت 1 صبح
             RecurringJob.AddOrUpdate<IAnalyticsCollectionService>(
                 "collect-all-analytics",
-                service => service.CollectAllAccountsAnalyticsAsync(),
+                service => service.CollectAllAccountsAnalyticsAsync(userId),
                 "0 1 * * *", // هر روز ساعت 1 صبح
                 TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time"));
 
