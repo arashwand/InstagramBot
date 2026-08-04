@@ -9,221 +9,221 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = InstagramBot.Web
 build_property.RootNamespace = InstagramBot.Web
-build_property.ProjectDir = D:\repos\InstagramBot\InstagramBot.Web\
+build_property.ProjectDir = C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Web\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\repos\InstagramBot\InstagramBot.Web
+build_property.MSBuildProjectDirectory = C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Web
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/App.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Layout/MainLayout-old.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Layout/MainLayout-old.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC1vbGQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Layout/MainLayout.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Layout/NavMenu.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Layout/Sidebar.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Layout/Sidebar.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcU2lkZWJhci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Layout/TopBar.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Layout/TopBar.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcVG9wQmFyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/AccountManagement.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/AccountManagement.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xBY2NvdW50TWFuYWdlbWVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/Add.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/Add.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xBZGQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/Index.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/Settings.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Accounts/Settings.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50c1xTZXR0aW5ncy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Analytics/Insights.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Analytics/Insights.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBbmFseXRpY3NcSW5zaWdodHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Analytics/Performance.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Analytics/Performance.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBbmFseXRpY3NcUGVyZm9ybWFuY2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Analytics/Reports.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Analytics/Reports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBbmFseXRpY3NcUmVwb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Analytics.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Analytics.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmRcQW5hbHl0aWNzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Dashboard.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Dashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmRcRGFzaGJvYXJkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Overview.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Dashboard/Overview.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmRcT3ZlcnZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Interactions/Automation.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Interactions/Automation.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbnRlcmFjdGlvbnNcQXV0b21hdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Interactions/Comments.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Interactions/Comments.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbnRlcmFjdGlvbnNcQ29tbWVudHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Interactions/Messages.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Interactions/Messages.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbnRlcmFjdGlvbnNcTWVzc2FnZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Analytics.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Analytics.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3N0c1xBbmFseXRpY3MucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Create.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Create.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3N0c1xDcmVhdGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Index.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3N0c1xJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Posts/PostManagement.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Posts/PostManagement.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3N0c1xQb3N0TWFuYWdlbWVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Schedule.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Posts/Schedule.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3N0c1xTY2hlZHVsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Settings/Notifications.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Settings/Notifications.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXR0aW5nc1xOb3RpZmljYXRpb25zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Settings/Profile.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Settings/Profile.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXR0aW5nc1xQcm9maWxlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Pages/Settings/Security.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Pages/Settings/Security.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXR0aW5nc1xTZWN1cml0eS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Charts/AreaChart.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Charts/AreaChart.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcQ2hhcnRzXEFyZWFDaGFydC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Charts/BarChart.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Charts/BarChart.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcQ2hhcnRzXEJhckNoYXJ0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Charts/LineChart.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Charts/LineChart.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcQ2hhcnRzXExpbmVDaGFydC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Charts/PieChart.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Charts/PieChart.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcQ2hhcnRzXFBpZUNoYXJ0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Forms/AccountForm.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Forms/AccountForm.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRm9ybXNcQWNjb3VudEZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Forms/AutomationForm.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Forms/AutomationForm.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRm9ybXNcQXV0b21hdGlvbkZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Forms/PostForm.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Forms/PostForm.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcRm9ybXNcUG9zdEZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/LoadingSpinner.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/LoadingSpinner.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcTG9hZGluZ1NwaW5uZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Modals/ConfirmModal.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Modals/ConfirmModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcTW9kYWxzXENvbmZpcm1Nb2RhbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Modals/ImagePreview.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Modals/ImagePreview.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcTW9kYWxzXEltYWdlUHJldmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Modals/VideoPreview.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Modals/VideoPreview.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcTW9kYWxzXFZpZGVvUHJldmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Tables/DataTable.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Tables/DataTable.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcVGFibGVzXERhdGFUYWJsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Tables/InteractionsTable.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Tables/InteractionsTable.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcVGFibGVzXEludGVyYWN0aW9uc1RhYmxlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/Tables/PostsTable.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/Tables/PostsTable.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcVGFibGVzXFBvc3RzVGFibGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Pages/Counter.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Pages/FetchData.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Pages/Index.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Shared/SurveyPrompt.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/_Imports.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Shared/MainLayout.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-vqirg2xrx7
 
-[D:/repos/InstagramBot/InstagramBot.Web/Shared/NavMenu.razor]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-3dwq5gzz7g
 
-[D:/repos/InstagramBot/InstagramBot.Web/Components/Shared/_Host.cshtml]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Components/Shared/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Pages/Error.cshtml]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Pages/_Host.cshtml]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/repos/InstagramBot/InstagramBot.Web/Pages/_Layout.cshtml]
+[C:/Users/Ahoora/Documents/GitHub/InstagramBot/InstagramBot.Web/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

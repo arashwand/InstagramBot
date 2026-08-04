@@ -7,9 +7,9 @@ namespace InstagramBot.Application.Services.Interfaces
     public interface IAccountService
     {
         Task<List<AccountDto>> GetAllAccountsAsync();
-        Task<AccountDto> GetAccountByIdAsync(int id);
+        Task<AccountDto> GetAccountByIdAsync(int accountId,int userId);
         Task CreateAccountAsync(CreateAccountDto account);
-        Task UpdateAccountAsync(int id, AccountDto account);
+        Task UpdateAccountAsync(int userId, AccountDto account);
         Task DeleteAccountAsync(int id);
     }
 }

@@ -42,7 +42,7 @@ namespace InstagramBot.Application.Services
             try
             {
                 // اعتبارسنجی حساب
-                var account = await _accountRepository.GetByIdAsync(scheduleDto.AccountId);
+                var account = await _accountRepository.GetByIdAsync(scheduleDto.AccountId, userId);
                 if (account == null || account.UserId != userId)
                 {
                     throw new UnauthorizedAccessException("حساب یافت نشد یا شما مجاز به استفاده از آن نیستید.");
@@ -80,7 +80,7 @@ namespace InstagramBot.Application.Services
 
                 // زمان‌بندی Job در Hangfire
                 var jobId = BackgroundJob.Schedule<IPostSchedulingService>(
-                    service => service.PublishScheduledPostAsync(savedPost.Id),
+                    service => service.PublishScheduledPostAsync(savedPost.Id, userId),
                     scheduleDto.ScheduledDate);
 
                 // ذخیره Job ID
@@ -93,7 +93,7 @@ namespace InstagramBot.Application.Services
                 _logger.LogInformation("Post scheduled successfully: {PostId} for user {UserId}",
                     savedPost.Id, userId);
 
-                return await MapToScheduledPostDto(savedPost);
+                return await MapToScheduledPostDto(savedPost, userId);
             }
             catch (Exception ex)
             {
@@ -106,13 +106,13 @@ namespace InstagramBot.Application.Services
         {
             try
             {
-                var post = await _postRepository.GetByIdAsync(postId);
+                var post = await _postRepository.GetByIdAsync(userId, postId);
                 if (post == null)
                 {
                     throw new ArgumentException("پست یافت نشد.");
                 }
 
-                var account = await _accountRepository.GetByIdAsync(post.AccountId);
+                var account = await _accountRepository.GetByIdAsync(post.AccountId, userId);
                 if (account.UserId != userId)
                 {
                     throw new UnauthorizedAccessException("شما مجاز به ویرایش این پست نیستید.");
@@ -138,7 +138,7 @@ namespace InstagramBot.Application.Services
 
                     // ایجاد Job جدید
                     var newJobId = BackgroundJob.Schedule<IPostSchedulingService>(
-                        service => service.PublishScheduledPostAsync(post.Id),
+                        service => service.PublishScheduledPostAsync(post.Id, userId),
                         updateDto.ScheduledDate);
 
                     post.ScheduledDate = updateDto.ScheduledDate;
@@ -150,7 +150,7 @@ namespace InstagramBot.Application.Services
                 await _logService.LogUserActivityAsync(userId, "PostUpdated",
                     $"Scheduled post {postId} updated");
 
-                return await MapToScheduledPostDto(updatedPost);
+                return await MapToScheduledPostDto(updatedPost, userId);
             }
             catch (Exception ex)
             {
@@ -163,11 +163,11 @@ namespace InstagramBot.Application.Services
         {
             try
             {
-                var post = await _postRepository.GetByIdAsync(postId);
+                var post = await _postRepository.GetByIdAsync(userId, postId);
                 if (post == null)
                     return false;
 
-                var account = await _accountRepository.GetByIdAsync(post.AccountId);
+                var account = await _accountRepository.GetByIdAsync(post.AccountId, userId);
                 if (account.UserId != userId)
                     return false;
 
@@ -205,7 +205,7 @@ namespace InstagramBot.Application.Services
 
             foreach (var post in posts)
             {
-                result.Add(await MapToScheduledPostDto(post));
+                result.Add(await MapToScheduledPostDto(post, userId));
             }
 
             return result;
@@ -213,32 +213,32 @@ namespace InstagramBot.Application.Services
 
         public async Task<ScheduledPostDto> GetScheduledPostByIdAsync(int postId, int userId)
         {
-            var post = await _postRepository.GetByIdAsync(postId);
+            var post = await _postRepository.GetByIdAsync(userId, postId);
             if (post == null)
                 return null;
 
-            var account = await _accountRepository.GetByIdAsync(post.AccountId);
+            var account = await _accountRepository.GetByIdAsync(post.AccountId, userId);
             if (account.UserId != userId)
                 return null;
 
-            return await MapToScheduledPostDto(post);
+            return await MapToScheduledPostDto(post, userId);
         }
 
         [AutomaticRetry(Attempts = 3)]
-        public async Task PublishScheduledPostAsync(int postId)
+        public async Task PublishScheduledPostAsync(int postId, int userId)
         {
             try
             {
                 _logger.LogInformation("Publishing scheduled post: {PostId}", postId);
 
-                var post = await _postRepository.GetByIdAsync(postId);
+                var post = await _postRepository.GetByIdAsync(userId, postId);
                 if (post == null || post.Status != "Scheduled")
                 {
                     _logger.LogWarning("Post {PostId} not found or not scheduled", postId);
                     return;
                 }
 
-                var account = await _accountRepository.GetByIdAsync(post.AccountId);
+                var account = await _accountRepository.GetByIdAsync(post.AccountId, userId);
                 if (account == null || !account.IsActive)
                 {
                     _logger.LogWarning("Account {AccountId} not found or inactive", post.AccountId);
@@ -281,7 +281,7 @@ namespace InstagramBot.Application.Services
                 // به‌روزرسانی وضعیت پست در صورت خطا
                 try
                 {
-                    var post = await _postRepository.GetByIdAsync(postId);
+                    var post = await _postRepository.GetByIdAsync(userId, postId);
                     if (post != null)
                     {
                         post.Status = "Failed";
@@ -322,9 +322,9 @@ namespace InstagramBot.Application.Services
             return null;
         }
 
-        private async Task<ScheduledPostDto> MapToScheduledPostDto(Post post)
+        private async Task<ScheduledPostDto> MapToScheduledPostDto(Post post, int userId)
         {
-            var account = await _accountRepository.GetByIdAsync(post.AccountId);
+            var account = await _accountRepository.GetByIdAsync(post.AccountId, userId);
 
             return new ScheduledPostDto
             {

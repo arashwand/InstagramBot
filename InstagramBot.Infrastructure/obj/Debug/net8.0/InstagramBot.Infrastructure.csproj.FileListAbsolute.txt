@@ -35,3 +35,12 @@ D:\repos\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.
 D:\repos\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\ref\InstagramBot.Infrastructure.dll
 D:\repos\InstagramBot\InstagramBot.Infrastructure\bin\Debug\net8.0\InstagramBot.DTOs.dll
 D:\repos\InstagramBot\InstagramBot.Infrastructure\bin\Debug\net8.0\InstagramBot.DTOs.pdb
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.AssemblyInfo.cs
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.sourcelink.json
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\refint\InstagramBot.Infrastructure.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Infrastructure\obj\Debug\net8.0\InstagramBot.Infrastructure.pdb

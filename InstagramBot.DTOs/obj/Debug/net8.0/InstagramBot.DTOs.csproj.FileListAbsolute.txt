@@ -11,3 +11,16 @@ D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.dll
 D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\refint\InstagramBot.DTOs.dll
 D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.pdb
 D:\repos\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\ref\InstagramBot.DTOs.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\bin\Debug\net8.0\InstagramBot.DTOs.deps.json
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\bin\Debug\net8.0\InstagramBot.DTOs.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\bin\Debug\net8.0\InstagramBot.DTOs.pdb
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.csproj.AssemblyReference.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.AssemblyInfoInputs.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.AssemblyInfo.cs
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.csproj.CoreCompileInputs.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.sourcelink.json
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\refint\InstagramBot.DTOs.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\InstagramBot.DTOs.pdb
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.DTOs\obj\Debug\net8.0\ref\InstagramBot.DTOs.dll

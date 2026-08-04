@@ -6,11 +6,11 @@ namespace InstagramBot.Application.Services.Interfaces
 {
     public interface IPostService
     {
-        Task<List<PostDto>> GetAllPostsAsync();
-        Task<PostDto> GetPostByIdAsync(int id);
-        Task CreatePostAsync(CreatePostDto post);
-        Task UpdatePostAsync(int id, PostDto post);
-        Task DeletePostAsync(int id);
-        Task<List<ScheduledPostDto>> GetScheduledPostsAsync(int count);
+        Task<List<PostDto>> GetAllPostsAsync(int userId);
+        Task<PostDto> GetPostByIdAsync(int id, int userId);
+        Task CreatePostAsync(CreatePostDto post, int userId);
+        Task UpdatePostAsync(int userId, PostDto post);
+        Task DeletePostAsync(int id, int userId);
+        Task<List<ScheduledPostDto>> GetScheduledPostsAsync(int count, int userId);
     }
 }

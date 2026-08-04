@@ -1,9 +1,49 @@
-/.vs
-/InstagramBot.Web/obj
-/InstagramBot.Infrastructure/obj
-/InstagramBot.Api/obj
-/InstagramBot.Core/obj
-/InstagramBot.Application/obj
-/InstagramBot.Api/bin
-/.vs
+# Visual Studio 2015/2017/2019/2022 cache/options directory
+.vs/
 
+# Build results
+[Bb]in/
+[Oo]bj/
+[Pp]ublish/
+[Oo]ut/
+
+# Databases
+db/
+[Dd]b/
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+*.ndf
+
+# Environments & Secrets
+appsettings.Development.json
+appsettings.Local.json
+.env
+secrets.json
+
+# Test results and coverage
+TestResults/
+*.coverage
+
+# IDEs
+.idea/
+.vscode/
+
+# Node / Front-end
+node_modules/
+dist/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Logs
+[Ll]og/
+[Ll]ogs/
+*.log

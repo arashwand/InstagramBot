@@ -306,3 +306,15 @@ D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\refint\InstagramBot.Api.
 D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.pdb
 D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.genruntimeconfig.cache
 D:\repos\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\ref\InstagramBot.Api.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.csproj.AssemblyReference.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.AssemblyInfoInputs.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.AssemblyInfo.cs
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.csproj.CoreCompileInputs.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.sourcelink.json
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\refint\InstagramBot.Api.dll
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\InstagramBot.Api.pdb
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Api\obj\Debug\net8.0\rpswa.dswa.cache.json

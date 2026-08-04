@@ -1,12 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "1WreHuCJPKs=",
+  "dgSpecHash": "QOCeUlVA7QQ=",
   "success": true,
-  "projectFilePath": "D:\\repos\\InstagramBot\\InstagramBot.DTOs\\InstagramBot.DTOs.csproj",
+  "projectFilePath": "C:\\Users\\Ahoora\\Documents\\GitHub\\InstagramBot\\InstagramBot.DTOs\\InstagramBot.DTOs.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ArashWand\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
-    "C:\\Users\\ArashWand\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
-    "C:\\Users\\ArashWand\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
+    "C:\\Users\\Ahoora\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\Ahoora\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\Ahoora\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "projectPath": "C:\\Users\\Ahoora\\Documents\\GitHub\\InstagramBot\\InstagramBot.DTOs\\InstagramBot.DTOs.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Ahoora\\Documents\\GitHub\\InstagramBot\\InstagramBot.DTOs\\InstagramBot.DTOs.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

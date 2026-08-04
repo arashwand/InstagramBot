@@ -183,7 +183,7 @@ namespace InstagramBot.Application.Services
             try
             {
                 // اعتبارسنجی حساب
-                var account = await _accountRepository.GetByIdAsync(publishDto.AccountId);
+                var account = await _accountRepository.GetByIdAsync(publishDto.AccountId, userId);
                 if (account == null || account.UserId != userId)
                 {
                     return new PublishResult
@@ -255,7 +255,7 @@ namespace InstagramBot.Application.Services
             try
             {
                 // اعتبارسنجی حساب
-                var account = await _accountRepository.GetByIdAsync(carouselDto.AccountId);
+                var account = await _accountRepository.GetByIdAsync(carouselDto.AccountId, userId);
                 if (account == null || account.UserId != userId)
                 {
                     return new PublishResult

@@ -1,4 +1,5 @@
 ﻿using InstagramBot.Application.Services.Interfaces;
+using InstagramBot.Core.Entities;
 using InstagramBot.Core.Interfaces;
 using InstagramBot.DTOs;
 using Microsoft.Extensions.Logging;
@@ -31,9 +32,9 @@ namespace InstagramBot.Application.Services
             }).ToList();
         }
 
-        public async Task<AccountDto> GetAccountByIdAsync(int id)
+        public async Task<AccountDto> GetAccountByIdAsync(int accountId, int userId)
         {
-            var account = await _accountRepository.GetByIdAsync(id);
+            var account = await _accountRepository.GetByIdAsync(accountId, userId);
             return new AccountDto
             {
                 Id = account.Id,
@@ -56,9 +57,9 @@ namespace InstagramBot.Application.Services
             await _accountRepository.CreateAsync(account);
         }
 
-        public async Task UpdateAccountAsync(int id, AccountDto dto)
+        public async Task UpdateAccountAsync(int userId, AccountDto dto)
         {
-            var account = await _accountRepository.GetByIdAsync(id);
+            var account = await _accountRepository.GetByIdAsync(dto.Id, userId);
             account.InstagramUsername = dto.InstagramUsername;
             account.IsActive = dto.IsActive;
             await _accountRepository.UpdateAsync(account);

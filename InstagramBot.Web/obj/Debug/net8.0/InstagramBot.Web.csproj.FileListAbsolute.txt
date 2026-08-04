@@ -8,3 +8,4 @@ D:\repos\InstagramBot\InstagramBot.Web\obj\Debug\net8.0\InstagramBot.Web.MvcAppl
 D:\repos\InstagramBot\InstagramBot.Web\obj\Debug\net8.0\InstagramBot.Web.RazorAssemblyInfo.cache
 D:\repos\InstagramBot\InstagramBot.Web\obj\Debug\net8.0\InstagramBot.Web.RazorAssemblyInfo.cs
 D:\repos\InstagramBot\InstagramBot.Web\obj\Debug\net8.0\InstagramBot.Web.sourcelink.json
+C:\Users\Ahoora\Documents\GitHub\InstagramBot\InstagramBot.Web\obj\Debug\net8.0\InstagramBot.Web.csproj.AssemblyReference.cache

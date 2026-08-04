@@ -14,6 +14,6 @@ namespace InstagramBot.Application.Services.Interfaces
         Task<bool> CancelScheduledPostAsync(int postId, int userId);
         Task<List<ScheduledPostDto>> GetScheduledPostsAsync(int userId, int? accountId = null);
         Task<ScheduledPostDto> GetScheduledPostByIdAsync(int postId, int userId);
-        Task PublishScheduledPostAsync(int postId);
+        Task PublishScheduledPostAsync(int postId, int userId);
     }
 }
